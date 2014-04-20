@@ -1,0 +1,262 @@
+body {
+	margin: 0;
+	font: 12px/1.9 "Lucida Grande", Lucida, Verdana, sans-serif;
+	color: #333;
+	background-color: #fff;
+}
+
+/* @group Page Dimensions */
+
+#navigation ul, #page, .pagefragment {
+	width: 800px;
+}
+
+/* @end */
+
+h1 {
+	display: none;
+	font-size: 1.4em;
+}
+
+h2 {
+	font-size: 1.2em;
+	margin-top: 25px;
+	margin-bottom: 12px;
+}
+
+p, ul, ol {
+	margin-bottom: 20px;
+	text-align: justify;
+}
+
+p code {
+	display: block;
+	text-align: left;
+}
+
+ul, ol {
+	padding-left: 25px;
+}
+
+a {
+	color: #008bcc;
+}
+
+a:hover {
+	color: #21a1ef;
+}
+
+a:visited {
+	color: #754acc;
+}
+
+#page, .pagefragment {
+	margin: 0 auto 30px;
+	padding-left: 40px;
+	padding-right: 40px;
+}
+
+.centered {
+	text-align: center;
+}
+
+a img {
+	border: none;
+}
+
+img.left.padded {
+	margin: 0 15px 15px 0;
+}
+
+img.left {
+	float: left;
+	margin-right: 50px;
+	margin-bottom: 8px;
+}
+
+img.right {
+	float: right;
+	margin-bottom: 20px;
+	margin-left: 20px;
+}
+
+
+/* @group Navigation */
+
+#navigation {
+	display: block;
+	padding: 0 40px 1px;
+	font-size: 11px;
+}
+
+#navigation * {
+	padding: 0;
+	margin: 0;
+}
+
+#navigation ul {
+	display: block;
+	margin: 0 auto;
+	
+}
+
+#navigation li {
+	display: block;
+	float: left;
+}
+
+#navigation li:hover {
+	
+}
+
+#navigation li.active {
+	background: url(../images-global/nav/ActiveTab.png) repeat-x 50% 100%;
+	background: url(../images-global/nav/ActiveTabSideShadows.png) repeat-y 0% 100%, url(../images-global/nav/ActiveTabSideShadows.png) repeat-y 100% 100%, url(../images-global/nav/ActiveTab.png) repeat-x 50% 100%;
+	background-color: #c9c9c9;
+}
+
+#navigation li a {
+	display: block;
+	padding: 75px 7px 30px;
+	color: #444;
+	font-weight: normal;
+	text-decoration: none;
+	background-image: url(../images-global/nav/Icons.png);
+	background-repeat: no-repeat;
+	background-position: 50% 0;
+	text-align: center;
+	width: 5.5em;
+}
+
+#navigation li a:hover {
+	background-image: url(../images-global/nav/IconsHover.png);
+}
+
+#navigation li.active a, #navigation li.active a:hover {
+	font-weight: bold;
+	background-image: url(../images-global/nav/IconsActive.png);
+	color: #f8f8f8;
+	text-shadow: #444 0 1px 0;
+}
+
+/* @group Auto-clearing */
+
+#navigation:after, #navigation ul:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+#navigation, #navigation ul { display: inline-block }
+
+/* Hides from IE-mac \*/
+* html #navigation, * html #navigation ul { height: 1% }
+#navigation, #navigation ul { display: block }
+/* End hide from IE-mac */
+	
+/* @end */
+
+/* @group Sections */
+
+#navigation li#nav-home a {
+	background: url(home.png) no-repeat 0 50%;
+	width: 13px;
+	padding-left: 0;
+	padding-right: 0;
+	overflow: hidden;
+	text-indent: -1000em;
+	margin-right: 15px;
+	margin-left: -28px;
+}
+
+#navigation li#nav-check a {
+	background-position: 50% -500px;
+}
+
+#navigation li#nav-help a {
+	background-position: 50% -500px;
+}
+
+
+
+#navigation li#nav-home a:hover {
+	background-position: -20px 50%;
+}
+
+li#nav-check a:hover {
+	text-shadow: #edc36e 0 0px 15px;
+}
+
+li#nav-help a:hover {
+	text-shadow: #6eb0fa 0 0px 15px;
+}
+
+/* @end */
+
+
+/* @group Auto-clearing */
+
+.autoclear:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+.autoclear { display: inline-block }
+
+/* Hides from IE-mac \*/
+* html .autoclear { height: 1% }
+.autoclear { display: block }
+/* End hide from IE-mac */
+	
+/* @end */
+
+/* @group Sections */
+
+body.home #page, body.checklist #page, body.help #page  {
+	margin-top: 40px;
+	background-position: 100% 0;
+	background-repeat: no-repeat;
+	padding-top: 64px;
+}
+
+body.home #page {
+	background-image: url(home.png);
+}
+
+body.checklist #page {
+	background-image: url(notebook.png);
+}
+
+body.help #page {
+	background-image: url(help.png);
+}
+
+
+body.home h1, body.checklist h1, body.help h1 {
+	display: block;
+	padding-top: 0;
+	padding-bottom: 30px;
+	line-height: 1;
+	margin: 0 0 12px;
+}
+
+body.home h1 {
+	margin-right: 350px;
+}
+
+body.checklist h1 {
+	margin-right: 310px;
+}
+
+body.help h1 {
+	margin-right: 350px;
+}
+
+
+/* @end */
+

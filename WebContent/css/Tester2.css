@@ -1,0 +1,58 @@
+@CHARSET "ISO-8859-1";
+
+li {
+	list-style-type: none;
+	line-height: 10%;
+}
+
+.dynamicDiv {
+	position: absolute;
+	margin-left: 500px;
+	visibility: hidden;
+	background-image:url(tooltip.png);
+	padding-left: 1%;
+}
+
+.borderMain {
+	border: 2px solid gray;
+	padding-left: 10%;
+	padding-bottom: 8%;
+	padding-top: 1%;
+	background-color: #F4F5ED;
+}
+
+.test {
+	text-align: center;
+	font-size: 16px;
+	font-weight: bold;
+	padding: 4px;
+	width: 18%;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #cc0000;
+	background-color: #EEEDD8;
+}
+
+table {
+	border: 2px #CC0000 solid;	
+	text-align: left;
+	width: 600px;
+	
+}
+
+td{
+	width: 200px;
+	
+}
+
+table tr:hover td {
+	background: #B6BCDC;
+	color:		#C00;
+}
+
+table thead, th {
+	background: #F93;
+	width: 100%;
+	
+}
+

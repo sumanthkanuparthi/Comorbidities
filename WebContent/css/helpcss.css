@@ -1,0 +1,11 @@
+@CHARSET "ISO-8859-1";
+
+p {
+	font-style: normal;
+	font-family: sans-serif;
+}
+
+li{
+	line-height: 10px;
+	padding-top: 5px;
+}
