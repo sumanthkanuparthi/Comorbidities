@@ -2149,11 +2149,11 @@ a {
        						anemiaValueMatch=1;
        				}
     			}	
-    			if(!minhb.isEmpty() && !values.containsKey("chhglo"))
+    			/*if(!minhb.isEmpty() && !values.containsKey("chhglo"))
 				{
     				anemiaFlag=false;
     				anemiaValueMatch=1;
-				}
+				}*/
     			if(testName.equals("prechhglo")) 
     			{
     				if(!testVal.isEmpty() && !minhb_prev.isEmpty())
@@ -2167,11 +2167,11 @@ a {
        						anemiaValueMatch=1;
        				}
     			}
-    			if(!minhb_prev.isEmpty() && !values.containsKey("prechhglo"))
+    			/*if(!minhb_prev.isEmpty() && !values.containsKey("prechhglo"))
     			{
     				anemiaFlag=false;
     				anemiaValueMatch=1;
-    			}
+    			}*/
     			if(testName.equals("chhcrit")) 
     			{	
     				if(!testVal.isEmpty() && !minhc.isEmpty())
@@ -2185,11 +2185,11 @@ a {
        						anemiaValueMatch=1;
        				}
     			}					
-    			if(!minhc.isEmpty() && !values.containsKey("chhcrit"))
+    			/*if(!minhc.isEmpty() && !values.containsKey("chhcrit"))
 				{
     				anemiaFlag=false;
     				anemiaValueMatch=1;
-				}
+				}*/
     			if(testName.equals("prechhcrit"))
     			{
     				if(!testVal.isEmpty() && !minhc_prev.isEmpty())
@@ -2203,11 +2203,11 @@ a {
        						anemiaValueMatch=1;
        				}
     			}	
-    			if(!minhc_prev.isEmpty() && !values.containsKey("prechhcrit"))
+    			/*if(!minhc_prev.isEmpty() && !values.containsKey("prechhcrit"))
     			{		
     				anemiaFlag=false;
     				anemiaValueMatch=1;
-    			}
+    			}*/
     		}
     	}
     	else
@@ -2651,11 +2651,11 @@ a {
        						KIValueMatch=1;
        				}
     			}	
-    			if(!maxcreatResult.isEmpty() && !values.containsKey("creat"))
+    			/*if(!maxcreatResult.isEmpty() && !values.containsKey("creat"))
     			{
 					KIFlag=false;
     				KIValueMatch=1;
-    			}
+    			}*/
     			if(testName.equals("prevcreat"))  
     			{
     				if(!testVal.isEmpty() && !maxcreatprevResult.isEmpty())
@@ -2669,11 +2669,11 @@ a {
        						KIValueMatch=1;
        				}
     			}
-    			if(!maxcreatprevResult.isEmpty() && !values.containsKey("prevcreat"))
+    			/*if(!maxcreatprevResult.isEmpty() && !values.containsKey("prevcreat"))
     			{
 					KIFlag=false;	
     				KIValueMatch=1;
-    			}
+    			}*/
     		}
     	}
     	else
@@ -2959,11 +2959,11 @@ a {
        						CKValueMatch=1;
        				}
        			}
-       			if(!maxcreatResult.isEmpty() && !values.containsKey("rfcCreat"))
+       			/*if(!maxcreatResult.isEmpty() && !values.containsKey("rfcCreat"))
        			{
 					CKDFlag=false;
        				CKValueMatch=1;
-       			}
+       			}*/
 				if(testName.equals("rfcPrevCreat"))  
 				{
 					if(!testVal.isEmpty() && !maxcreatprevResult.isEmpty())
@@ -2977,11 +2977,11 @@ a {
        						CKValueMatch=1;
        				}
 				}
-				if(!maxcreatprevResult.isEmpty() && !values.containsKey("rfcPrevCreat"))
+				/*if(!maxcreatprevResult.isEmpty() && !values.containsKey("rfcPrevCreat"))
 				{
 					CKDFlag=false;
 					CKValueMatch=1;
-				}
+				}*/
         	}
         }
         else
@@ -3112,6 +3112,7 @@ a {
     System.out.println("Dehydration: " + result_dehydration);
     if(result_dehydration !=0)
     {
+    	
     	Iterator imain=valueMatch.entrySet().iterator();
         Map<String, String> values =new HashMap<String, String>();
        	while(imain.hasNext())
@@ -3127,6 +3128,16 @@ a {
        	}
        	if(DFlag)
        	{
+       		if(!creatinineValue.isEmpty() && !bunValue.isEmpty())
+        	{
+        		double x=Double.parseDouble(creatinineValue);
+        		double y=Double.parseDouble(bunValue);
+        		if((int)(y/x)>20)
+        		{
+        			creatinineValue="8.0";
+        			bunValue="-99999.0";
+        		}
+        	}
        		Iterator ival=values.entrySet().iterator();
        		while(ival.hasNext())
         	{
@@ -3149,11 +3160,11 @@ a {
        				}
        				
        			}
-       			if(!creatinineValue.isEmpty() && !values.containsKey("hydracreatinine"))
+       			/*if(!creatinineValue.isEmpty() && !values.containsKey("hydracreatinine"))
        			{
        				DFlag=false;
        				DehydrationValueMatch=1;
-       			}
+       			}*/
        			if(testName.equals("hydrabunresult"))
        			{
        			
@@ -3169,11 +3180,11 @@ a {
        						DehydrationValueMatch=1;
        				}
        			}
-       			if(!bunValue.isEmpty() && !values.containsKey("hydrabunresult"))
+       			/*if(!bunValue.isEmpty() && !values.containsKey("hydrabunresult"))
        			{	
 						DehydrationValueMatch=1;
 						DFlag=false;
-       			}
+       			}*/
         	}
        		System.out.println("Result dehydration :"+result_dehydration);
        	}
@@ -3269,11 +3280,11 @@ a {
        						EBGValueMatch=1;
        				}
        			}
-       			if(!maxglucResult.equals("-99999.0") && !values.containsKey("glucresult"))
+       			/*if(!maxglucResult.equals("-99999.0") && !values.containsKey("glucresult"))
        			{	
        				EBGFlag=false;
        				EBGValueMatch=1;
-       			}
+       			}*/
        			
        		}
        	}
@@ -3422,11 +3433,11 @@ a {
        						HGValueMatch=1;
        				}
        			}
-       			if(!minglucResult.isEmpty() && !values.containsKey("glucResult"))
+       			/*if(!minglucResult.isEmpty() && !values.containsKey("glucResult"))
        			{
        				HGFlag=false;
        				HGValueMatch=1;
-       			}
+       			}*/
        		}
        	}
        	else
@@ -3823,12 +3834,12 @@ a {
    	   					}
    	   				}
    				}
-   				if(!minpotassiumResult.equals("99999.0") && !values.containsKey("hypokalpot"))
+   				/*if(!minpotassiumResult.equals("99999.0") && !values.containsKey("hypokalpot"))
   				{
   						System.out.println("HypokalPot value from cernet is in not null2");
   						eaFlag=false;
   						eaValueMatch=1;
-  				}
+  				}*/
    				if(testName.equals("hyperkalpot")) 
    				{
    					if(!testVal.isEmpty() && !maxpotassiumResult.isEmpty())
@@ -3842,12 +3853,12 @@ a {
    	   						eaValueMatch=1;
    	   				}
    				}
-   				if(!maxpotassiumResult.equals("-99999.0") && !values.containsKey("hyperkalpot"))
+   				/*if(!maxpotassiumResult.equals("-99999.0") && !values.containsKey("hyperkalpot"))
   				{					
   						System.out.println("HyperkalPot null2");
   						eaFlag=false;
   						eaValueMatch=1;
-  				}
+  				}*/
    				if(testName.equals("hyponatsod"))  
    				{
    					if(!testVal.isEmpty() && !minsodiumResult.isEmpty())
@@ -3865,12 +3876,12 @@ a {
    						}
    	   				}
    				}
-   				if(!minsodiumResult.equals("99999.0") && !values.containsKey("hyponatsod"))
+   				/*if(!minsodiumResult.equals("99999.0") && !values.containsKey("hyponatsod"))
 				{
 					System.out.println("HyponatSod value from cernet is in not null2");
 					eaFlag=false;
 					eaValueMatch=1;
-				}
+				}*/
    				if(testName.equals("hypernatsod")) 
    				{	
    					
@@ -3889,12 +3900,12 @@ a {
    						}
    	   				}
    				}
-   				if(!maxsodiumResult.equals("-99999.0") && !values.containsKey("hypernatsod"))
+   				/*if(!maxsodiumResult.equals("-99999.0") && !values.containsKey("hypernatsod"))
 				{
 						System.out.println("HypernatSod value from cernet is in not null2");
 						eaFlag=false;
 						eaValueMatch=1;
-				}
+				}*/
    				if(testName.equals("hypocalcal"))  
    				{
    					if(!testVal.isEmpty() && !mincalciumResult.isEmpty())
@@ -3908,12 +3919,12 @@ a {
    	   						eaValueMatch=1;
    	   				}
    				}
-   				if(!mincalciumResult.isEmpty() && !values.containsKey("hypocalcal"))
+   				/*if(!mincalciumResult.isEmpty() && !values.containsKey("hypocalcal"))
    				{		
    					System.out.println("in second if lcal");
    					eaValueMatch=1;
    					eaFlag=false;
-   				}
+   				}*/
 				if(testName.equals("hypercalcal")) 
 				{	
 					if(!testVal.isEmpty() && !maxcalciumResult.isEmpty())
@@ -3927,12 +3938,12 @@ a {
    	   						eaValueMatch=1;
    	   				}
 				}
-				if(!maxcalciumResult.isEmpty() && !values.containsKey("hypercalcal"))
+				/*if(!maxcalciumResult.isEmpty() && !values.containsKey("hypercalcal"))
 				{	
 					System.out.println("in second if hcal");
 					eaFlag=false;
 					eaValueMatch=1;
-				}
+				}*/
 				if(testName.equals("hypophosphos")) 
 				{	
 					if(!testVal.isEmpty() && !minphosphorusResult.isEmpty())
@@ -3946,12 +3957,12 @@ a {
    	   						eaValueMatch=1;
    	   				}
 				}
-				if(!minphosphorusResult.isEmpty() && !values.containsKey("hypophosphos"))
+				/*if(!minphosphorusResult.isEmpty() && !values.containsKey("hypophosphos"))
 				{	
 					System.out.println("in second if lphos");
 					eaFlag=false;
 					eaValueMatch=1;
-				}
+				}*/
 				if(testName.equals("hyperphosphos"))
 				{
 					if(!testVal.isEmpty() && !maxphosphorusResult.isEmpty())
@@ -3965,12 +3976,12 @@ a {
    	   						eaValueMatch=1;
    	   				}
 				}
-				if(!maxphosphorusResult.isEmpty() && !values.containsKey("hyperphosphos"))
+				/*if(!maxphosphorusResult.isEmpty() && !values.containsKey("hyperphosphos"))
 				{		
 					System.out.println("in second if hphos");
 					eaFlag=false;
 					eaValueMatch=1;
-				}
+				}*/
 				if(testName.equals("hypomagmag")) 
 				{
 					
@@ -3985,12 +3996,12 @@ a {
    	   						eaValueMatch=1;
    	   				}
 				}
-				if(!minmagnesiumResult.isEmpty() && !values.containsKey("hypomagmag"))
+				/*if(!minmagnesiumResult.isEmpty() && !values.containsKey("hypomagmag"))
 				{		
 					System.out.println("in second if lmag");
 					eaFlag=false;
 					eaValueMatch=1;
-				}
+				}*/
 				if(testName.equals("hypermagmag")) 
 				{	
 					if(!testVal.isEmpty() && !maxmagnesiumResult.isEmpty())
@@ -4004,12 +4015,12 @@ a {
    	   						eaValueMatch=1;
    	   				}
 				}
-  				if(!maxmagnesiumResult.isEmpty() && !values.containsKey("hypermagmag"))
+  				/*if(!maxmagnesiumResult.isEmpty() && !values.containsKey("hypermagmag"))
   				{		
   					System.out.println("in second if hmag");
   					eaFlag=false;
   					eaValueMatch=1;
-  				}
+  				}*/
    			}
    		}
    		else
@@ -4572,11 +4583,11 @@ a {
    	   						malValueMatch=1;
    	   				}
        			}
-       			if(!maxheight.isEmpty() && !values.containsKey("malHeight"))
+       			/*if(!maxheight.isEmpty() && !values.containsKey("malHeight"))
        			{
   					mFlag=false;	
        				malValueMatch=1;
-       			}
+       			}*/
        			if(testName.equals("malWeight")) 
        			{
        				if(!testVal.isEmpty() && !minweight.isEmpty())
@@ -4590,11 +4601,11 @@ a {
    	   						malValueMatch=1;
    	   				}
        			}
-       			if(!minweight.isEmpty() && !values.containsKey("malWeight"))
+       			/*if(!minweight.isEmpty() && !values.containsKey("malWeight"))
        			{
   					mFlag=false;	
        				malValueMatch=1;
-       			}
+       			}*/
        		}
        	}
        	else
@@ -4689,11 +4700,11 @@ a {
    	   						oValueMatch=1;
    	   				}
        			}			
-       			if(!maxweight.isEmpty() && !values.containsKey("obweight"))
+       			/*if(!maxweight.isEmpty() && !values.containsKey("obweight"))
        			{
   					oFlag=false;	
        				oValueMatch=1;
-       			}
+       			}*/
        			if(testName.equals("obheight")) 
        			{	
        				
@@ -4708,11 +4719,11 @@ a {
    	   						oValueMatch=1;
    	   				}
        			}
-       			if(!minheight.isEmpty() && !values.containsKey("obheight"))
+       			/*if(!minheight.isEmpty() && !values.containsKey("obheight"))
        			{
   					oFlag=false;	
        				oValueMatch=1;
-       			}
+       			}*/
        		}
        	}
        	else
@@ -4812,11 +4823,11 @@ a {
    	   						moValueMatch=1;
    	   				}
        			}
-	   			if(!maxweight.isEmpty() && !values.containsKey("mobweight"))
+	   			/*if(!maxweight.isEmpty() && !values.containsKey("mobweight"))
 	   			{
 	   				moFlag=false;
 	   				moValueMatch=1;
-	   			}
+	   			}*/
        			if(testName.equals("mobheight")) 
        			{	
        				if(!testVal.isEmpty() && !minheight.isEmpty())
@@ -4830,11 +4841,11 @@ a {
    	   						moValueMatch=1;
    	   				}
        			}
-       			if(!minheight.isEmpty() && !values.containsKey("mobheight"))
+       			/*if(!minheight.isEmpty() && !values.containsKey("mobheight"))
 	   			{
 	   				moFlag=false;
 	   				moValueMatch=1;
-	   			}
+	   			}*/
        			
        		}
        	}
@@ -4927,11 +4938,11 @@ a {
    	   						htValueMatch=1;
    	   				}
        			}
-       			if(!maxsysBP.isEmpty() && !values.containsKey("htnbpsys"))
+       			/*if(!maxsysBP.isEmpty() && !values.containsKey("htnbpsys"))
        			{
   					htFlag=false;
        				htValueMatch=1;
-       			}
+       			}*/
        			if(testName.equals("htnbpdia")) 
        			{		
        				if(!testVal.isEmpty() && !maxdiasBP.isEmpty())
@@ -4945,11 +4956,11 @@ a {
    	   						htValueMatch=1;
    	   				}
        			}
-       			if(!maxdiasBP.isEmpty() && !values.containsKey("htnbpdia"))
+       			/*if(!maxdiasBP.isEmpty() && !values.containsKey("htnbpdia"))
        			{
        				htFlag=false;
        				htValueMatch=1;
-       			}
+       			}*/
        		}
        	}
        	else
@@ -5100,11 +5111,11 @@ a {
        					shockValueMatch=1;
        				}
        			}
-       			if(!minsysBP.isEmpty() && !values.containsKey("shockbp"))
+       			/*if(!minsysBP.isEmpty() && !values.containsKey("shockbp"))
        			{
    					shockFlag=false;
        				shockValueMatch=1;
-       			}
+       			}*/
        		}
        	}
        	else
@@ -5567,11 +5578,11 @@ a {
    	   						utiValueMatch=1;
    	   				}
 				}
-				if(!maxUtiWbc.isEmpty() && !values.containsKey("wbccount"))
+				/*if(!maxUtiWbc.isEmpty() && !values.containsKey("wbccount"))
 				{
 					utiFlag=false;
 					utiValueMatch=1;
-				}
+				}*/
 				if(testName.equals("utiuln"))
 				{
 					if(!testVal.isEmpty() && !urini.isEmpty())
@@ -5585,11 +5596,11 @@ a {
    	   						utiValueMatch=1;
    	   				}
 				}
-				if(!urini.isEmpty() && !values.containsKey("utiuln"))
+				/*if(!urini.isEmpty() && !values.containsKey("utiuln"))
 				{
 					utiFlag=false;
 					utiValueMatch=1;
-				}
+				}*/
 				if(testName.equals("utiule"))
 				{
 					if(!testVal.isEmpty() && !urinest.isEmpty())
@@ -5603,11 +5614,11 @@ a {
    	   						utiValueMatch=1;
    	   				}
 				}
-				if(!urinest.isEmpty() && !values.containsKey("utiule"))
+				/*if(!urinest.isEmpty() && !values.containsKey("utiule"))
 				{
   					utiFlag=false;	
 					utiValueMatch=1;
-				}
+				}*/
 			}
 		}
 		else
