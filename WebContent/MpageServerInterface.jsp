@@ -3828,7 +3828,6 @@ a {
   						System.out.println("HypokalPot value from cernet is in not null2");
   						eaFlag=false;
   						eaValueMatch=1;
-  						temp=0;
   				}
    				if(testName.equals("hyperkalpot")) 
    				{
