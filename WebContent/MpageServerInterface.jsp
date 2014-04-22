@@ -2130,7 +2130,7 @@ a {
     	}
     	if(anemiaFlag)
     	{
-    		Iterator ival=values.entrySet().iterator();
+    		/*Iterator ival=values.entrySet().iterator();
     		while(ival.hasNext())
     		{
     			Entry e=(Entry)ival.next();
@@ -2149,11 +2149,11 @@ a {
        						anemiaValueMatch=1;
        				}
     			}	
-    			/*if(!minhb.isEmpty() && !values.containsKey("chhglo"))
+    			if(!minhb.isEmpty() && !values.containsKey("chhglo"))
 				{
     				anemiaFlag=false;
     				anemiaValueMatch=1;
-				}*/
+				}
     			if(testName.equals("prechhglo")) 
     			{
     				if(!testVal.isEmpty() && !minhb_prev.isEmpty())
@@ -2167,11 +2167,11 @@ a {
        						anemiaValueMatch=1;
        				}
     			}
-    			/*if(!minhb_prev.isEmpty() && !values.containsKey("prechhglo"))
+    			if(!minhb_prev.isEmpty() && !values.containsKey("prechhglo"))
     			{
     				anemiaFlag=false;
     				anemiaValueMatch=1;
-    			}*/
+    			}
     			if(testName.equals("chhcrit")) 
     			{	
     				if(!testVal.isEmpty() && !minhc.isEmpty())
@@ -2185,11 +2185,11 @@ a {
        						anemiaValueMatch=1;
        				}
     			}					
-    			/*if(!minhc.isEmpty() && !values.containsKey("chhcrit"))
+    			if(!minhc.isEmpty() && !values.containsKey("chhcrit"))
 				{
     				anemiaFlag=false;
     				anemiaValueMatch=1;
-				}*/
+				}
     			if(testName.equals("prechhcrit"))
     			{
     				if(!testVal.isEmpty() && !minhc_prev.isEmpty())
@@ -2203,12 +2203,13 @@ a {
        						anemiaValueMatch=1;
        				}
     			}	
-    			/*if(!minhc_prev.isEmpty() && !values.containsKey("prechhcrit"))
+    			if(!minhc_prev.isEmpty() && !values.containsKey("prechhcrit"))
     			{		
     				anemiaFlag=false;
     				anemiaValueMatch=1;
-    			}*/
-    		}
+    			}
+    		}*/
+    		anemiaValueMatch=0;
     	}
     	else
     	{
@@ -2218,7 +2219,6 @@ a {
     
     if(anemiaValueMatch != 0)
     {
-    	
     	
      %>
         <tr>
