@@ -46,7 +46,7 @@ public class Anemia implements ComorbiditiesFunctor{
 	 */
 	@Override
 	public String getName() {
-		return "Anemia :";
+		return "Anemia";
 	}
 
 	/*
@@ -157,10 +157,10 @@ public class Anemia implements ComorbiditiesFunctor{
 
 						if(!chHglo.isEmpty()){
 							Element chHgloElement = doc.createElement("chhglo");
-							chHgloElement.appendChild(doc.createTextNode(getICD9Commit(chHglo)));
+							chHgloElement.appendChild(doc.createTextNode(chHglo));
 							subCat.appendChild(chHgloElement);
 							Element chHgloDateElement = doc.createElement("chhglodate");
-							chHgloDateElement.appendChild(doc.createTextNode(getICD9Commit(chHgloDate)));
+							chHgloDateElement.appendChild(doc.createTextNode(chHgloDate));
 							subCat.appendChild(chHgloDateElement);
 
 
@@ -172,7 +172,7 @@ public class Anemia implements ComorbiditiesFunctor{
 							preChHgloElement.appendChild(doc.createTextNode(preChHglo));
 							subCat.appendChild(preChHgloElement);
 							Element preChHgloDateElement = doc.createElement("prechhglodate");
-							preChHgloDateElement.appendChild(doc.createTextNode(getICD9Commit(chHgloDate)));
+							preChHgloDateElement.appendChild(doc.createTextNode(preChHgloDate));
 							subCat.appendChild(preChHgloDateElement);
 
 						}
@@ -180,10 +180,10 @@ public class Anemia implements ComorbiditiesFunctor{
 
 						if(chHcrit.isEmpty() != true){
 							Element chHcritElement = doc.createElement("chhcrit");
-							chHcritElement.appendChild(doc.createTextNode(preChHglo));
+							chHcritElement.appendChild(doc.createTextNode(chHcrit));
 							subCat.appendChild(chHcritElement);
 							Element chHcritDateElement = doc.createElement("chhcritdate");
-							chHcritDateElement.appendChild(doc.createTextNode(getICD9Commit(chHgloDate)));
+							chHcritDateElement.appendChild(doc.createTextNode(chHcritDate));
 							subCat.appendChild(chHcritDateElement);
 
 						}
@@ -214,10 +214,10 @@ public class Anemia implements ComorbiditiesFunctor{
 
 						if(!chHglo.isEmpty()){
 							Element chHgloElement = doc.createElement("chhglo");
-							chHgloElement.appendChild(doc.createTextNode(getICD9Commit(chHglo)));
+							chHgloElement.appendChild(doc.createTextNode(chHglo));
 							subCat.appendChild(chHgloElement);
 							Element chHgloDateElement = doc.createElement("chhglodate");
-							chHgloDateElement.appendChild(doc.createTextNode(getICD9Commit(chHgloDate)));
+							chHgloDateElement.appendChild(doc.createTextNode(chHgloDate));
 							subCat.appendChild(chHgloDateElement);
 
 
@@ -229,7 +229,7 @@ public class Anemia implements ComorbiditiesFunctor{
 							preChHgloElement.appendChild(doc.createTextNode(preChHglo));
 							subCat.appendChild(preChHgloElement);
 							Element preChHgloDateElement = doc.createElement("prechhglodate");
-							preChHgloDateElement.appendChild(doc.createTextNode(getICD9Commit(chHgloDate)));
+							preChHgloDateElement.appendChild(doc.createTextNode(preChHgloDate));
 							subCat.appendChild(preChHgloDateElement);
 
 						}
@@ -237,10 +237,10 @@ public class Anemia implements ComorbiditiesFunctor{
 
 						if(chHcrit.isEmpty() != true){
 							Element chHcritElement = doc.createElement("chhcrit");
-							chHcritElement.appendChild(doc.createTextNode(preChHglo));
+							chHcritElement.appendChild(doc.createTextNode(chHcrit));
 							subCat.appendChild(chHcritElement);
 							Element chHcritDateElement = doc.createElement("chhcritdate");
-							chHcritDateElement.appendChild(doc.createTextNode(getICD9Commit(chHgloDate)));
+							chHcritDateElement.appendChild(doc.createTextNode(chHcritDate));
 							subCat.appendChild(chHcritDateElement);
 
 						}
@@ -270,20 +270,20 @@ public class Anemia implements ComorbiditiesFunctor{
 						subCat.appendChild(icd91);
 						if(!chHglo.isEmpty()){
 							Element chHgloElement = doc.createElement("chhglo");
-							chHgloElement.appendChild(doc.createTextNode(getICD9Commit(chHglo)));
+							chHgloElement.appendChild(doc.createTextNode(chHglo));
 							subCat.appendChild(chHgloElement);
 							Element chHgloDateElement = doc.createElement("chhglodate");
-							chHgloDateElement.appendChild(doc.createTextNode(getICD9Commit(chHgloDate)));
+							chHgloDateElement.appendChild(doc.createTextNode(chHgloDate));
 							subCat.appendChild(chHgloDateElement);
 
 
 						}
 						if(chHcrit.isEmpty() != true){
 							Element chHcritElement = doc.createElement("chhcrit");
-							chHcritElement.appendChild(doc.createTextNode(preChHglo));
+							chHcritElement.appendChild(doc.createTextNode(chHcrit));
 							subCat.appendChild(chHcritElement);
 							Element chHcritDateElement = doc.createElement("chhcritdate");
-							chHcritDateElement.appendChild(doc.createTextNode(getICD9Commit(chHgloDate)));
+							chHcritDateElement.appendChild(doc.createTextNode(chHcritDate));
 							subCat.appendChild(chHcritDateElement);
 
 						}
