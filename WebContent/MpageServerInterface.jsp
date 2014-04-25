@@ -128,31 +128,34 @@ a {
 	int somevalue=0;
     ArrayList<String> disableCoMorb=new ArrayList<String>();
     System.out.println("the selenium testing 1 2 3 ----------------------------");
+    System.out.println("-3");
     String encounterID=request.getParameter("encntr_id");
+    System.out.println("-2");
     WebDriver driver = new HtmlUnitDriver();
     //File queryFile=new File("query.txt");
     //File queryFile= new File("C:\\Users\\iramakris\\Documents\\query.xml");
-    
+    System.out.println("-1");
   //String pageHead="";
    String link="http://172.31.133.112:8080/test/test.jsp";  //radiology server
 //String link="http://172.24.236.101:8080/test/test.jsp";  //test server
 //	String link="http://127.0.0.1:8080/test/test.jsp"; 
   	
-
+	System.out.println("1");
   	driver.get(link);
-    
+  	System.out.println("2");
     
     driver.findElement(By.id("tbEncId")).sendKeys(encounterID);
-   
+    System.out.println("3");
     driver.findElement(By.id("submit")).submit();
     //pageHead=driver.getTitle();
-   
+   System.out.println("4");
     //String queryResult= driver.findElement(By.id("xml")).getText();
     String queryResult=driver.getTitle();
     //String specialString="";
+    System.out.println("5");
     String infoBoxString="";
     request.getSession().setAttribute("prevXml1",queryResult);
-    
+    System.out.println("6");
     System.out.println("coming ------------------))))))) "+queryResult);
     if(!queryResult.equals("-1")){
     	
@@ -242,7 +245,8 @@ a {
 							noSubCategory=1;
 							nodeName=nll.item(j).getNodeName();
 							nodeValue=nll.item(j).getTextContent();
-							//System.out.println("NodeName :"+nodeName+"\t-->\tNodeValue :"+nodeValue);
+
+							System.out.println("NodeName :"+nodeName+"\t-->\tNodeValue :"+nodeValue);
 							values.put(nodeName,nodeValue);
 						}
 					}
@@ -270,12 +274,6 @@ a {
 					{
 						valueMatch.put(combName,values);
 					}
-					/*Iterator imatch=values.entrySet().iterator();
-					while(imatch.hasNext())
-					{
-						Entry e7=(Entry)imatch.next();
-						System.out.println("N Name ==> "+e7.getKey()+"\t N Value ==>"+e7.getValue());
-					}*/
 				}
 				%>
 			
@@ -344,9 +342,11 @@ a {
 					for(int j=0;j<subcatChildList.getLength();j++)
 					{
 						
-						if(subcatChildList.item(j).getNodeType()==Node.ELEMENT_NODE){
+						if(subcatChildList.item(j).getNodeType()==Node.ELEMENT_NODE)
+						{
 							printPrevCoMorb+=subcatChildList.item(j).getNodeName()+":"+subcatChildList.item(j).getTextContent()+"\n";	
-							if(!subcatChildList.item(j).getNodeName().equals("subname")){
+							if(!subcatChildList.item(j).getNodeName().equals("subname"))
+							{
 								displayString+=subcatChildList.item(j).getNodeName()+":"+subcatChildList.item(j).getTextContent()+"<br/>";	
 							}
 						}
@@ -354,11 +354,11 @@ a {
 						//{	
 							//ValueMatch: Generating HashMap for test name and values which are there in sub-comorbidities
 							valuesCaptured=1;
-							//nodeName=nll.item(j).getNodeName();
-							//System.out.println("NodeName :"+nodeName+"\t-->\tNodeValue :"+nodeValue);
-							//nodeValue=nll.item(j).getTextContent();
+
+
 							values.put(subcatChildList.item(j).getNodeName(),subcatChildList.item(j).getTextContent());
 						//}
+						
 					}
 					
 					%>
@@ -463,7 +463,7 @@ a {
   
   
 <%
-
+		System.out.println("starting to print manual");
 		Node manualComorb = doc.getElementsByTagName("manual").item(0);
         if(manualComorb!=null){
 		NodeList comorbidityList1 = manualComorb.getChildNodes();
@@ -620,7 +620,6 @@ a {
     %>
   
      <input type="hidden" name="printPrevCoMorb" id="printPrevCoMorb" value="<%=printPrevCoMorb%>">
-    	<!--  input type="hidden" name="queryResult" id="queryResult" value="<%=queryResult%>"-->
     </div>
     
     
@@ -2219,7 +2218,6 @@ a {
     
     if(anemiaValueMatch != 0)
     {
-    	
     	
      %>
         <tr>

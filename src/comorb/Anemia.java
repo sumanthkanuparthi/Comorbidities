@@ -46,7 +46,7 @@ public class Anemia implements ComorbiditiesFunctor{
 	 */
 	@Override
 	public String getName() {
-		return "Anemia :";
+		return "Anemia";
 	}
 
 	/*
@@ -172,7 +172,11 @@ public class Anemia implements ComorbiditiesFunctor{
 							preChHgloElement.appendChild(doc.createTextNode(preChHglo));
 							subCat.appendChild(preChHgloElement);
 							Element preChHgloDateElement = doc.createElement("prechhglodate");
-							preChHgloDateElement.appendChild(doc.createTextNode(chHgloDate));
+
+							//preChHgloDateElement.appendChild(doc.createTextNode(chHgloDate));
+
+							preChHgloDateElement.appendChild(doc.createTextNode(preChHgloDate));
+
 							subCat.appendChild(preChHgloDateElement);
 
 						}
@@ -180,10 +184,14 @@ public class Anemia implements ComorbiditiesFunctor{
 
 						if(chHcrit.isEmpty() != true){
 							Element chHcritElement = doc.createElement("chhcrit");
-							chHcritElement.appendChild(doc.createTextNode(preChHglo));
+							chHcritElement.appendChild(doc.createTextNode(chHcrit));
 							subCat.appendChild(chHcritElement);
 							Element chHcritDateElement = doc.createElement("chhcritdate");
-							chHcritDateElement.appendChild(doc.createTextNode(chHgloDate));
+
+//							chHcritDateElement.appendChild(doc.createTextNode(chHgloDate));
+
+							chHcritDateElement.appendChild(doc.createTextNode(chHcritDate));
+
 							subCat.appendChild(chHcritDateElement);
 
 						}
@@ -229,7 +237,11 @@ public class Anemia implements ComorbiditiesFunctor{
 							preChHgloElement.appendChild(doc.createTextNode(preChHglo));
 							subCat.appendChild(preChHgloElement);
 							Element preChHgloDateElement = doc.createElement("prechhglodate");
-							preChHgloDateElement.appendChild(doc.createTextNode(chHgloDate));
+
+						//	preChHgloDateElement.appendChild(doc.createTextNode(chHgloDate));
+
+							preChHgloDateElement.appendChild(doc.createTextNode(preChHgloDate));
+
 							subCat.appendChild(preChHgloDateElement);
 
 						}
@@ -237,10 +249,14 @@ public class Anemia implements ComorbiditiesFunctor{
 
 						if(chHcrit.isEmpty() != true){
 							Element chHcritElement = doc.createElement("chhcrit");
-							chHcritElement.appendChild(doc.createTextNode(preChHglo));
+							chHcritElement.appendChild(doc.createTextNode(chHcrit));
 							subCat.appendChild(chHcritElement);
 							Element chHcritDateElement = doc.createElement("chhcritdate");
-							chHcritDateElement.appendChild(doc.createTextNode(chHgloDate));
+
+//							chHcritDateElement.appendChild(doc.createTextNode(chHgloDate));
+
+							chHcritDateElement.appendChild(doc.createTextNode(chHcritDate));
+
 							subCat.appendChild(chHcritDateElement);
 
 						}
@@ -280,10 +296,14 @@ public class Anemia implements ComorbiditiesFunctor{
 						}
 						if(chHcrit.isEmpty() != true){
 							Element chHcritElement = doc.createElement("chhcrit");
-							chHcritElement.appendChild(doc.createTextNode(preChHglo));
+							chHcritElement.appendChild(doc.createTextNode(chHcrit));
 							subCat.appendChild(chHcritElement);
 							Element chHcritDateElement = doc.createElement("chhcritdate");
-							chHcritDateElement.appendChild(doc.createTextNode(chHgloDate));
+
+	//						chHcritDateElement.appendChild(doc.createTextNode(chHgloDate));
+
+							chHcritDateElement.appendChild(doc.createTextNode(chHcritDate));
+
 							subCat.appendChild(chHcritDateElement);
 
 						}
