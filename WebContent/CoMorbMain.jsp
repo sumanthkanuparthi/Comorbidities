@@ -9,17 +9,20 @@ http://uhmc-ed-admitd.uhmc.sunysb.edu:8080/CoMorbidities/forwardData.jsp
 This page then calculates the comorbidities
  -->
 
+<%@page import="java.net.URLDecoder"%>
 <%@page import="com.itextpdf.text.log.SysoLogger.*"%>
 <%@page import="java.text.ParseException"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@page import="comorb.*"%>
 <%@page import="java.awt.Toolkit.*"%>
 <%@page import="java.io.*"%>
+<%@page import="java.util.*"%>
 <%@page import="java.text.DateFormat"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.logging.*" %>
 <%@page import="java.util.regex.Pattern"%>
+<%@page import="java.net.URLEncoder" %>
 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -70,6 +73,23 @@ function toggle() {
 
 </head>
 <%
+//String queryString = "";
+
+//path += ("?"+request.getQueryString());
+//path=path.substring(15);
+
+//String queryString="";
+
+//Cookie firstName = new Cookie("first_name",request.getQueryString());
+//response.addCookie( firstName );
+//request.getSession().setAttribute("prevURL", request.getQueryString());
+ //ServletContext application1 = request.getSession().getServletContext();
+ //application1.setAttribute("prevURL",request.getQueryString());
+// Cookie cookiee = new Cookie("prevURL", request.getQueryString());
+//Interface.setURL(request.getQueryString());
+ //response.addCookie(cookiee);
+//request.getSession().setAttribute("prevURL",request.getQueryString());
+//System.out.println("nkkkkkk ------------------------->>>>><<<<>>>>>>>"+path+"?"+request.getQueryString());
 //String encounterID=stringOrNot(request.getParameter("encntr_id"));
 //WebDriver driver = new HtmlUnitDriver();
 //String pageHead="";
@@ -109,8 +129,20 @@ Function to verify the values received
 String HIGH = "99999";
 String LOW = "-99999";
 String encounterID=stringOrNot(request.getParameter("encntr_id"));
+
 String userID=stringOrNot(request.getParameter("user_id"));
 
+HashMap<String,String> hm=new HashMap<String,String>();
+
+Enumeration en=request.getParameterNames();
+while(en.hasMoreElements()){
+String str=en.nextElement().toString();
+
+hm.put(str,request.getParameter(str));
+
+}
+
+request.getSession().setAttribute("prevURLHM", hm);
 //Sodium
 //@modified by Abhishek
 //0 = Normal Sodium, 1 = Sodium Whole Blood, if both are empty, no readings (Considered Sodium Values are empty anyway)
@@ -128,12 +160,15 @@ String  sodiumLow = stringOrNot(request.getParameter("sodium_low")),
 	    sodiumMinResult = stringOrNot(request.getParameter("sodium_min_val")),
 		sodiumMinDate = request.getParameter("sodium_min_date");
 
+
+
 String  sodiumLowWb = stringOrNot(request.getParameter("wb_sodium_low")), 
 		sodiumHighWb = stringOrNot(request.getParameter("wb_sodium_high")), 
 		sodiumMinResultWb = stringOrNot(request.getParameter("wb_sodium_min_val")),
 		sodiumMaxResultWb = stringOrNot(request.getParameter("wb_sodium_max_val")),
 		sodiumMinDateWb = request.getParameter("wb_sodium_min_date"),
 		sodiumMaxDateWb = request.getParameter("wb_sodium_max_date");
+
 
 System.out.println("Sodium Min Result 1: " + sodiumMinResult);
 System.out.println("Sodium Max Result 1: " + sodiumMaxResult);
@@ -244,12 +279,15 @@ String  potassiumLow = stringOrNot(request.getParameter("potassium_low")),
 		potassiumMinDate = request.getParameter("potassium_min_date"),
 		potassiumMaxDate = request.getParameter("potassium_max_date"); 
 
+
+
 String  potassiumLowWb = stringOrNot(request.getParameter("wb_potassium_low")), 
 		potassiumHighWb = stringOrNot(request.getParameter("wb_potassium_high")),
 		potassiumMinResultWb = stringOrNot(request.getParameter("wb_potassium_min_val")),
 		potassiumMaxResultWb = stringOrNot(request.getParameter("wb_potassium_max_val")),
 		potassiumMinDateWb = request.getParameter("wb_potassium_min_date"),
 		potassiumMaxDateWb = request.getParameter("wb_potassium_max_date");
+
 
 String  potassiumLowConsidered = "", 
 		potassiumHighConsidered = "", 
@@ -324,6 +362,8 @@ String  calciumLow = stringOrNot(request.getParameter("calcium_low")),
 	    calciumMaxDate =request.getParameter("calcium_max_date");
 
 
+
+
 //Glucose
 //@modified by Abhishek
 //0 = Normal glucose, 1 = glucose Whole Blood, if both are empty, no readings (Considered glucose Values are empty anyway) 
@@ -334,12 +374,16 @@ String  glucMinResult = stringOrNot(request.getParameter("glucose_min_val")),
 		glucLow = stringOrNot(request.getParameter("glucose_low")), 
 		glucHigh = stringOrNot(request.getParameter("glucose_high"));
 
+
+
 String  glucLowWb = stringOrNot(request.getParameter("wb_glucose_low")), 
 		glucHighWb = stringOrNot(request.getParameter("wb_glucose_high")),
 		glucMinResultWb = stringOrNot(request.getParameter("wb_glucose_min_val")),
 		glucMaxResultWb = stringOrNot(request.getParameter("wb_glucose_max_val")),
 		glucMinDateWb = request.getParameter("wb_glucose_min_date"),
 		glucMaxDateWb = request.getParameter("wb_glucose_max_date");
+
+
 
 String  glucLowConsidered = "", 
 		glucHighConsidered = "", 
@@ -412,10 +456,17 @@ String heightMinResult = stringOrNot(request.getParameter("height_min_val")),
 	   heightMinDate = request.getParameter("height_min_date"), 
 	   heightMaxDate = request.getParameter("height_max_date");
 
+
+//queryString+="height_min_val="+heightMinResult+"&"+"height_max_val="+heightMaxResult+"&"+"height_min_date="+heightMinDate+"&"+"height_max_date="+heightMaxDate+"&";
+
 //Weight
 String weightMinResult = stringOrNot(request.getParameter("weight_min_val")), 
 	   weightMaxResult = stringOrNot(request.getParameter("weight_max_val")), 
-	   weightMinDate = request.getParameter("weight_min_date"), weightMaxDate = request.getParameter("weight_max_date");
+	   weightMinDate = request.getParameter("weight_min_date"),
+	   weightMaxDate = request.getParameter("weight_max_date");
+
+
+//queryString+="weight_min_val="+weightMinResult+"&"+"weight_max_val="+weightMaxResult+"&"+"weight_min_date="+weightMinDate+"&"+"weight_max_date="+weightMaxDate;
 
 //Systolic Blood Pressure
 String  sysBPMinResult = stringOrNot(request.getParameter("Systolic_Blood_Pressure_min_val")), 
@@ -425,6 +476,10 @@ String  sysBPMinResult = stringOrNot(request.getParameter("Systolic_Blood_Pressu
 		sysBPLow = stringOrNot(request.getParameter("Systolic_Blood_Pressure_low")), 
 		sysBPHigh = stringOrNot(request.getParameter("Systolic_Blood_Pressure_high"));
 
+
+
+
+
 //Diastolic Blood Pressure
 String  diasBPMinResult = stringOrNot(request.getParameter("Diastolic_Blood_Pressure_min_val")), 
 		diasBPMaxResult = stringOrNot(request.getParameter("Diastolic_Blood_Pressure_max_val")),
@@ -432,6 +487,8 @@ String  diasBPMinResult = stringOrNot(request.getParameter("Diastolic_Blood_Pres
 		diasBPMaxDate = request.getParameter("Diastolic_Blood_Pressure_max_date"),
 		diasBPLow = stringOrNot(request.getParameter("Diastolic_Blood_Pressure_low")), 
 		diasBPHigh = stringOrNot(request.getParameter("Diastolic_Blood_Pressure_high"));
+
+
  
 //PCO2
 String pco2MinResult = stringOrNot(request.getParameter("pco2_min_val")),
@@ -441,12 +498,16 @@ String pco2MinResult = stringOrNot(request.getParameter("pco2_min_val")),
 	   pco2High = stringOrNot(request.getParameter("pco2_high")), 
 	   pco2Low = stringOrNot(request.getParameter("pco2_low"));
 
+
+
 String prevPco2MinResult = stringOrNot(request.getParameter("pco2_prev_min_val")), 
 	   prevPco2MaxResult = stringOrNot(request.getParameter("pco2_prev_max_val")),
 	   prevPco2MinDate = request.getParameter("pco2_prev_min_date"), 
 	   prevPco2MaxDate = request.getParameter("pco2_prev_max_date"),
 	   prevPco2Low = stringOrNot(request.getParameter("pco2_prev_low")), 
 	   prevPco2High = stringOrNot(request.getParameter("pco2_prev_high"));
+
+
 
 //Etco
 String etco2MinResult = stringOrNot(request.getParameter("etco2_min_val")), 
@@ -456,12 +517,16 @@ String etco2MinResult = stringOrNot(request.getParameter("etco2_min_val")),
 	   etco2Low = stringOrNot(request.getParameter("etco2_low")), 
 	   etco2High = stringOrNot(request.getParameter("etco2_high"));
 
+
+
 String prevEtco2MinResult = stringOrNot(request.getParameter("etco2_prev_min_val")),
 	   prevEtco2MaxResult = stringOrNot(request.getParameter("etco2_prev_max_val")),
 	   prevEtco2MinDate = request.getParameter("etco2_prev_min_date"),
 	   prevEtco2MaxDate = request.getParameter("etco2_prev_max_date"),
 	   prevEtco2Low = stringOrNot(request.getParameter("etco2_prev_low")), 
 	   prevEtco2High = stringOrNot(request.getParameter("etco2_prev_high"));
+
+
 
 //PO2
 String  po2MinResult = stringOrNot(request.getParameter("po2_min_val")),
@@ -471,6 +536,8 @@ String  po2MinResult = stringOrNot(request.getParameter("po2_min_val")),
 		po2High = stringOrNot(request.getParameter("po2_high")), 
 		po2Low = stringOrNot(request.getParameter("po2_low"));
 
+
+
 //O2sat
 String  o2satMinResult = stringOrNot(request.getParameter("o2sat_min_val")), 
 		o2satMaxResult = stringOrNot(request.getParameter("o2sat_max_val")),
@@ -478,12 +545,15 @@ String  o2satMinResult = stringOrNot(request.getParameter("o2sat_min_val")),
 		o2satMaxDate = request.getParameter("o2sat_max_date"),
 		o2satLow = stringOrNot(request.getParameter("o2sat_low")), o2satHigh = stringOrNot(request.getParameter("o2sat_high"));
 
+
+
  //Pulse Oximetry
 String  oximetryMinResult = stringOrNot(request.getParameter("oximetry_min_val")), 
 		oximetryMaxResult = stringOrNot(request.getParameter("oximetry_max_val")),
 		oximetryMinDate = request.getParameter("oximetry_min_date"), 
 		oximetryMaxDate = request.getParameter("oximetry_max_date"),
 		oximetryLow = stringOrNot(request.getParameter("oximetry_low")), oximetryHigh = stringOrNot(request.getParameter("oximetry_high")); 
+
 
 
 //Bun
@@ -496,12 +566,16 @@ String  bunMinResult = stringOrNot(request.getParameter("bun_min_val")),
 		bunLow = stringOrNot(request.getParameter("bun_low")), 
 		bunHigh = stringOrNot(request.getParameter("bun_high"));
 
+
+
 String  bunLowWb = stringOrNot(request.getParameter("wb_bun_low")), 
 		bunHighWb = stringOrNot(request.getParameter("wb_bun_high")), 
 		bunMinResultWb = stringOrNot(request.getParameter("wb_bun_min_val")),
 		bunMaxResultWb = stringOrNot(request.getParameter("wb_bun_max_val")),
 		bunMinDateWb = request.getParameter("wb_bun_min_date"),
 		bunMaxDateWb = request.getParameter("wb_bun_max_date");
+
+
 
 String  bunLowConsidered = "", 
 		bunHighConsidered = "", 
@@ -576,12 +650,16 @@ String  creatMinResult = stringOrNot(request.getParameter("creat_min_val")),
 		creatLow = stringOrNot(request.getParameter("creat_low")), 
 		creatHigh = stringOrNot(request.getParameter("creat_high"));
 
+
+
 String  creatLowWb = stringOrNot(request.getParameter("wb_creat_low")), 
 		creatHighWb = stringOrNot(request.getParameter("wb_creat_high")), 
 		creatMinResultWb = stringOrNot(request.getParameter("wb_creat_min_val")),
 		creatMaxResultWb = stringOrNot(request.getParameter("wb_creat_max_val")),
 		creatMinDateWb = request.getParameter("wb_creat_min_date"),
 		creatMaxDateWb = request.getParameter("wb_creat_max_date");
+
+
 
 String  creatLowConsidered = "", 
 		creatHighConsidered = "", 
@@ -657,12 +735,15 @@ String prevCreatMinResult = stringOrNot(request.getParameter("creat_prev_min_val
 		prevCreatMinDate = request.getParameter("creat_prev_min_date"),
 		prevCreatMaxDate = request.getParameter("creat_prev_max_date");
 
+
 String  prevCreatLowWb = stringOrNot(request.getParameter("wb_creat_prev_low")), 
 		prevCreatHighWb = stringOrNot(request.getParameter("wb_creat_prev_high")), 
 		prevCreatMinResultWb = stringOrNot(request.getParameter("wb_creat_prev_min_val")),
 		prevCreatMaxResultWb = stringOrNot(request.getParameter("wb_creat_prev_max_val")),
 		prevCreatMinDateWb = request.getParameter("wb_creat_prev_min_date"),
 		prevCreatMaxDateWb = request.getParameter("wb_creat_prev_max_date");
+
+
 
 String  prevCreatLowConsidered = "", 
 		prevCreatHighConsidered = "", 
@@ -735,6 +816,9 @@ String  gfrMinDate = request.getParameter("gfr_min_date"),
 		gfrMaxDate = request.getParameter("gfr_max_date"),
 		gfrMinResult = request.getParameter("gfr_min_val"),
 		gfrMaxResult = request.getParameter("gfr_max_val");
+
+
+
 		//gfrLow = request.getParameter("gfr_low"), 
 		//gfrHigh = request.getParameter("gfr_high");
 
@@ -768,6 +852,8 @@ String  hbMinResult = stringOrNot(request.getParameter("hb_min_val")),
 		hbPrevMaxDate = request.getParameter("hb_prev_max_date"), 
 		hbPrevLow = stringOrNot(request.getParameter("hb_prev_low")), 
 		hbPrevHigh = stringOrNot(request.getParameter("hb_prev_high"));
+ 
+ 
 
 //Haematocrit
 String  hcMinResult = stringOrNot(request.getParameter("hc_min_val")), 
@@ -781,7 +867,9 @@ String  hcMinResult = stringOrNot(request.getParameter("hc_min_val")),
 		hcPrevMinDate = request.getParameter("hc_prev_min_date"),
 		hcPrevMaxDate = request.getParameter("hc_prev_max_date"),
 		hcPrevLow = stringOrNot(request.getParameter("hc_prev_low")), 
-		hcPrevHigh = stringOrNot(request.getParameter("hc_prev_high"));	
+		hcPrevHigh = stringOrNot(request.getParameter("hc_prev_high"));
+
+
 
 // Cardiac troponin
 String  ctMinResult = stringOrNot(request.getParameter("ct_min_val")), 
@@ -790,6 +878,8 @@ String  ctMinResult = stringOrNot(request.getParameter("ct_min_val")),
 		ctMaxDate = request.getParameter("ct_max_date"), 
 		ctLow = request.getParameter("ct_low"), 
 		ctHigh = stringOrNot(request.getParameter("ct_high"));
+
+
 
 if((true != ctLow.isEmpty()) && ctLow.contains("<")){
 	ctLow = ctLow.substring(1);
@@ -802,6 +892,7 @@ String  wbcMinResult = stringOrNot(request.getParameter("wbc_min_val")),
 		wbcLow = stringOrNot(request.getParameter("wbc_low")), 
 		wbcHigh = stringOrNot(request.getParameter("wbc_high"));
 
+
 //UTI WBC 
 String  utiWbcMinResult = stringOrNot(request.getParameter("utiWbc_min_val")),
 		utiWbcMaxResult = stringOrNot(request.getParameter("utiWbc_max_val")),
@@ -809,6 +900,8 @@ String  utiWbcMinResult = stringOrNot(request.getParameter("utiWbc_min_val")),
 		utiWbcMaxDate = request.getParameter("utiWbc_max_date"),
 		utiWbcLow = stringOrNot(request.getParameter("utiWbc_low")),
 		utiWbcHigh = stringOrNot(request.getParameter("utiWbc_high"));
+
+
 
 // Nitrite 
 String  uriniMinResult = request.getParameter("leucocyte_nitrite_min_val"), 
@@ -818,6 +911,8 @@ String  uriniMinResult = request.getParameter("leucocyte_nitrite_min_val"),
 		uriniLow = stringOrNot(request.getParameter("leucocyte_nitrite_low")), 
 		uriniHigh = stringOrNot(request.getParameter("leucocyte_nitrite_high"));
 
+
+
 // Leucocyte Esterate
 String  urinestMinResult = request.getParameter("leucocyte_esterate_min_val"), 
 		urinestMaxResult = request.getParameter("leucocyte_esterate_max_val"),
@@ -825,6 +920,8 @@ String  urinestMinResult = request.getParameter("leucocyte_esterate_min_val"),
 		urinestMaxDate = request.getParameter("leucocyte_esterate_max_date"),
 		urinestLow = request.getParameter("leucocyte_esterate_low"), 
 		urinestHigh = request.getParameter("leucocyte_esterate_high");
+
+
 	
 // Heart Rate
 String  hRateMinResult  = stringOrNot(request.getParameter("hr_min_val")),
@@ -833,6 +930,8 @@ String  hRateMinResult  = stringOrNot(request.getParameter("hr_min_val")),
 	    hRateMaxDate = request.getParameter("hr_max_date"),
 	    hRateLow = stringOrNot(request.getParameter("hr_low")),
 	    hRateHigh = stringOrNot(request.getParameter("hr_high"));
+
+
 		
 // Respiratory Rate
 String  rRateMinResult = stringOrNot(request.getParameter("rr_min_val")) ,
@@ -844,6 +943,7 @@ String  rRateMinResult = stringOrNot(request.getParameter("rr_min_val")) ,
 	   
 
 
+
 // Temperature
 String  tempMinResult = stringOrNot(request.getParameter("temp_min_val")),
 		tempMaxResult = stringOrNot(request.getParameter("temp_max_val")),
@@ -851,6 +951,8 @@ String  tempMinResult = stringOrNot(request.getParameter("temp_min_val")),
 	   	tempMaxDate = request.getParameter("temp_max_date"),
 	   	tempLow = stringOrNot(request.getParameter("temp_low")),
 	   	tempHigh = stringOrNot(request.getParameter("temp_high"));
+
+
 
 //Lactate
 String  lactateMinResult = stringOrNot(request.getParameter("lactate_min_val")),
@@ -860,6 +962,8 @@ String  lactateMinResult = stringOrNot(request.getParameter("lactate_min_val")),
 	    lactateLow = stringOrNot(request.getParameter("lactate_low")),
 	    lactateHigh = stringOrNot(request.getParameter("lactate_high"));
 
+
+
 //Lactic Acid
 String  lactic_acidMinResult = stringOrNot(request.getParameter("lactic_acid_min_val")), 
 		lactic_acidMaxResult = stringOrNot(request.getParameter("lactic_acid_max_val")),
@@ -867,6 +971,8 @@ String  lactic_acidMinResult = stringOrNot(request.getParameter("lactic_acid_min
 		lactic_acidMaxDate = request.getParameter("lactic_acid_max_date"),
 		lactic_acidLow = stringOrNot(request.getParameter("lactic_acid_low")), 
 		lactic_acidHigh = stringOrNot(request.getParameter("lactic_acid_high"));
+
+
 
 System.out.println("Lactic Acid Max Date Testing: " + lactic_acidMaxDate);
 System.out.println("Lactic Acid Max Value Testing: " + lactic_acidMaxResult);
@@ -877,6 +983,8 @@ String  lactic_acidLowWb = stringOrNot(request.getParameter("wb_lactic_acid_low"
 		lactic_acidMaxResultWb = stringOrNot(request.getParameter("wb_lactic_acid_max_val")),
 		lactic_acidMinDateWb = request.getParameter("wb_lactic_acid_min_date"),
 		lactic_acidMaxDateWb = request.getParameter("wb_lactic_acid_max_date");
+
+
 
 System.out.println("Lactic Acid WB Max Date Testing: " + lactic_acidMaxDateWb);
 System.out.println("Lactic Acid WB Max Value Testing: " + lactic_acidMaxResultWb);
@@ -952,6 +1060,8 @@ String  phosphorusMinResult = stringOrNot(request.getParameter("phosphorus_min_v
 		phosphorusMaxDate = request.getParameter("phosphorus_max_date"),
 		phosphorusLow = stringOrNot(request.getParameter("phosphorus_low")), 
 		phosphorusHigh = stringOrNot(request.getParameter("phosphorus_high"));
+
+
 		 
 
 //Magnesium
@@ -961,7 +1071,8 @@ String  magnesiumMinResult = stringOrNot(request.getParameter("magnesium_min_val
 		magnesiumMaxDate = request.getParameter("magnesium_max_date"),
 		magnesiumLow = stringOrNot(request.getParameter("magnesium_low")), 
 		magnesiumHigh = stringOrNot(request.getParameter("magnesium_high"));
-		
+	
+
 
 //Cholesterol
 String  cholesterolMinResult = stringOrNot(request.getParameter("cholesterol_min_val")), 
@@ -970,6 +1081,8 @@ String  cholesterolMinResult = stringOrNot(request.getParameter("cholesterol_min
 		cholesterolMaxDate = request.getParameter("cholesterol_max_date"),
 		cholesterolLow = stringOrNot(request.getParameter("cholesterol_low")), 
 		cholesterolHigh = stringOrNot(request.getParameter("cholesterol_high"));
+
+
 		
 
 //Neutrophil
@@ -979,6 +1092,8 @@ String  neutrophilMinResult = stringOrNot(request.getParameter("neutrophil_min_v
 		neutrophilMaxDate = request.getParameter("neutrophil_max_date"),
 		neutrophilLow = stringOrNot(request.getParameter("neutrophil_low")), 
 		neutrophilHigh = stringOrNot(request.getParameter("neutrophil_high"));
+
+
 
 if(!(neutrophilMinResult.isEmpty() || neutrophilMaxResult.isEmpty())) {
 	if(Double.parseDouble(neutrophilMinResult) > Double.parseDouble(neutrophilMaxResult)) {
@@ -993,6 +1108,10 @@ String  dehydrationCreatDate = request.getParameter("dehydration_creat_date"),
 		dehydrationBunDate = request.getParameter("dehydration_bun_date"),
 		creatinineValue = stringOrNot(request.getParameter("dehydration_creat")),
 		bunValue = stringOrNot(request.getParameter("dehydration_bun"));
+
+//queryString+="&";
+//request.getSession().setAttribute("prevURL",queryString);
+
 %>
 
 <body  bgcolor="EEEDD8">
@@ -1003,6 +1122,7 @@ String  dehydrationCreatDate = request.getParameter("dehydration_creat_date"),
 		"font-weight:bold;display:none"><br>
 -->
 <!-- HTML part  -->
+
 <input type="hidden" id='encntr_id' name="encntr_id" value=<%=encounterID%>>
 <input type="hidden" id='user_id' name="user_id" value=<%=userID%>>
 <input type="hidden" id='sodium_max_date' name="sodium_max_date" value=<%=sodiumMaxDateConsidered%>>

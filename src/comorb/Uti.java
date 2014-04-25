@@ -61,6 +61,9 @@ public class Uti implements ComorbiditiesFunctor {
 	public String getICD9(){
 		return (new String("(ICD9 CODE: "+"5990)"));
 	}
+	public String getICD9Commit(){
+		return (new String("5990"));
+	}
 
 	/*
 	 *This function writes to the pdf
@@ -72,9 +75,9 @@ public class Uti implements ComorbiditiesFunctor {
 		final String utiDate      = Utils.getParameter(request, "utiDate");
 		final String utiWbc       = Utils.getParameter(request, "utiWbc");
 		final String utiUle       = Utils.getParameter(request, "utiUle");
-		final String utiUln       = Utils.getParameter(request, "utiUledate");
-		final String utiUlndate   = Utils.getParameter(request, "utiUln");
-		final String utiUledate   = Utils.getParameter(request, "utiUlndate");
+		final String utiUln       = Utils.getParameter(request, "utiUln");
+		final String utiUlndate   = Utils.getParameter(request, "utiUlndate");
+		final String utiUledate   = Utils.getParameter(request, "utiUledate");
 
 		utichckgrp = request.getParameterValues("catheterAssoc");
 
@@ -103,7 +106,7 @@ public class Uti implements ComorbiditiesFunctor {
 			rootElement.appendChild(nameElement);
 
 			Element icdElement = doc.createElement("icd");
-			icdElement.appendChild(doc.createTextNode(getICD9()));
+			icdElement.appendChild(doc.createTextNode(getICD9Commit()));
 			rootElement.appendChild(icdElement);
 
 			Element dateElement = doc.createElement("date");
@@ -114,12 +117,13 @@ public class Uti implements ComorbiditiesFunctor {
 			timeElement.appendChild(doc.createTextNode(Date.substring(0,10)));
 			rootElement.appendChild(timeElement);
 
-			if(utichckgrp == null){
+			/*if(utichckgrp == null){
 				DOMImplementationLS domImplementation = (DOMImplementationLS) doc.getImplementation();
 			    LSSerializer lsSerializer = domImplementation.createLSSerializer();
 			    overallReturn= lsSerializer.writeToString(doc);	
+				
 			}
-			else{
+			else{*/
 				
 				for (int j = 0; j < utichckgrp.length; j++){
 					Element subCat = doc.createElement("subcategory");
@@ -128,30 +132,31 @@ public class Uti implements ComorbiditiesFunctor {
 						Element subname = doc.createElement("subname");
 						subname.appendChild(doc.createTextNode("Catherter Associated"));
 						subCat.appendChild(subname);
-						Element utidate = doc.createElement("utidate");
-						utidate.appendChild(doc.createTextNode(utiDate.toString()));
-						subCat.appendChild(utidate);
-						Element utiuledate = doc.createElement("utiuledate");
-						utiuledate.appendChild(doc.createTextNode(utiUledate.toString()));
-						subCat.appendChild(utiuledate);
-						Element utiulndate = doc.createElement("utiulndate");
-						utiulndate.appendChild(doc.createTextNode(utiUlndate.toString()));
-						subCat.appendChild(utiulndate);
+						
+					
+						
 
-					}
+					
 					
 				if(utiWbc.isEmpty()!=true){
 
-					Element wbccount = doc.createElement("wbccount");
-					wbccount.appendChild(doc.createTextNode(utiWbc));
-					subCat.appendChild(wbccount);
+					Element utiwbcElement = doc.createElement("utiwbc");
+					utiwbcElement.appendChild(doc.createTextNode(utiWbc));
+					subCat.appendChild(utiwbcElement);
+					
+					Element utidateElement = doc.createElement("utidate");
+					utidateElement.appendChild(doc.createTextNode(utiDate.toString()));
+					subCat.appendChild(utidateElement);
 					
 				}
 				if(utiUle.isEmpty()!=true){
 					//writer.outLine(spacesLevelThree_ + "Urinalysis, Leukocyte Esterase: " + utiUle + " " + utiUledate + "\n",subFont_);
-					Element utiule = doc.createElement("utiule");
-					utiule.appendChild(doc.createTextNode(utiUle));
-					subCat.appendChild(utiule);
+					Element utiuleElement = doc.createElement("utiule");
+					utiuleElement.appendChild(doc.createTextNode(utiUle));
+					subCat.appendChild(utiuleElement);
+					Element utiuledate = doc.createElement("utiuledate");
+					utiuledate.appendChild(doc.createTextNode(utiUledate.toString()));
+					subCat.appendChild(utiuledate);
 					
 				}
 				if(utiUln.isEmpty()!=true){
@@ -159,10 +164,15 @@ public class Uti implements ComorbiditiesFunctor {
 					Element utiuln = doc.createElement("utiuln");
 					utiuln.appendChild(doc.createTextNode(utiUln));
 					subCat.appendChild(utiuln);
+					Element utiulndate = doc.createElement("utiulndate");
+					utiulndate.appendChild(doc.createTextNode(utiUlndate.toString()));
+					subCat.appendChild(utiulndate);
 					
 				}
 				}
-			}
+				}
+				
+			
 			DOMImplementationLS domImplementation = (DOMImplementationLS) doc.getImplementation();
 		    LSSerializer lsSerializer = domImplementation.createLSSerializer();
 		    overallReturn= lsSerializer.writeToString(doc); 

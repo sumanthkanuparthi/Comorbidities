@@ -185,11 +185,10 @@ public class ElectrolyteAbnormality implements ComorbiditiesFunctor {
 
 			}
 			else{
-				
+				Element subCat = doc.createElement("subcategory");
+				rootElement.appendChild(subCat);
 				//rootElement.appendChild(subCat);
 				for (int j = 0; j < EaChkGrp.length; j++){
-					Element subCat = doc.createElement("subcategory");
-					rootElement.appendChild(subCat);
 
 					if(EaChkGrp[j].equalsIgnoreCase("Electrolyte Abnormality :Hypokalemia")) {
 
@@ -203,10 +202,11 @@ public class ElectrolyteAbnormality implements ComorbiditiesFunctor {
 						//final String hypokalDate = Utils.getParameter(request, "hypokalDate");
 						//final String hypokalPot  = Utils.getParameter(request, "hypokalPot");
 							Element hypokalDateElement = doc.createElement("hypokaldate");
-							hypokalDateElement.appendChild(doc.createTextNode(getICD9Commit(hypokalDate)));
+							hypokalDateElement.appendChild(doc.createTextNode(hypokalDate));
 							subCat.appendChild(hypokalDateElement);
 							Element hypokalPotElement = doc.createElement("hypokalpot");
-							hypokalPotElement.appendChild(doc.createTextNode(getICD9Commit(hypokalPot)));
+							System.out.println("Hypokalpot :"+hypokalPot);
+							hypokalPotElement.appendChild(doc.createTextNode(hypokalPot));
 							subCat.appendChild(hypokalPotElement);
 
 
@@ -232,10 +232,10 @@ public class ElectrolyteAbnormality implements ComorbiditiesFunctor {
 						//final String hyperkalDate = Utils.getParameter(request, "hyperkalDate");
 						//final String hyperkalPot  = Utils.getParameter(request, "hyperkalPot");
 							Element hyperkalDateElement = doc.createElement("hyperkaldate");
-							hyperkalDateElement.appendChild(doc.createTextNode(getICD9Commit(hyperkalDate)));
+							hyperkalDateElement.appendChild(doc.createTextNode(hyperkalDate));
 							subCat.appendChild(hyperkalDateElement);
 							Element hyperkalPotElement = doc.createElement("hyperkalpot");
-							hyperkalPotElement.appendChild(doc.createTextNode(getICD9Commit(hyperkalPot)));
+							hyperkalPotElement.appendChild(doc.createTextNode(hyperkalPot));
 							subCat.appendChild(hyperkalPotElement);
 
 
@@ -261,10 +261,10 @@ public class ElectrolyteAbnormality implements ComorbiditiesFunctor {
 						//final String hyponatSod  = Utils.getParameter(request, "hyponatSod");
 						
 							Element hyponatDateElement = doc.createElement("hyponatdate");
-							hyponatDateElement.appendChild(doc.createTextNode(getICD9Commit(hyponatDate)));
+							hyponatDateElement.appendChild(doc.createTextNode(hyponatDate));
 							subCat.appendChild(hyponatDateElement);
 							Element hyponatSodElement = doc.createElement("hyponatsod");
-							hyponatSodElement.appendChild(doc.createTextNode(getICD9Commit(hyponatSod)));
+							hyponatSodElement.appendChild(doc.createTextNode(hyponatSod));
 							subCat.appendChild(hyponatSodElement);
 
 
@@ -291,7 +291,7 @@ public class ElectrolyteAbnormality implements ComorbiditiesFunctor {
 							hypernatDateElement.appendChild(doc.createTextNode(hypernatDate));
 							subCat.appendChild(hypernatDateElement);
 							Element hypernatSodElement = doc.createElement("hypernatsod");
-							hypernatSodElement.appendChild(doc.createTextNode(getICD9Commit(hypernatSod)));
+							hypernatSodElement.appendChild(doc.createTextNode(hypernatSod));
 							subCat.appendChild(hypernatSodElement);
 
 					
@@ -315,7 +315,7 @@ public class ElectrolyteAbnormality implements ComorbiditiesFunctor {
 							hypocalDateElement.appendChild(doc.createTextNode(hypocalDate));
 							subCat.appendChild(hypocalDateElement);
 							Element hypocalCalElement = doc.createElement("hypocalcal");
-							hypocalCalElement.appendChild(doc.createTextNode(getICD9Commit(hypocalCal)));
+							hypocalCalElement.appendChild(doc.createTextNode(hypocalCal));
 							subCat.appendChild(hypocalCalElement);
 
 						
@@ -339,7 +339,7 @@ public class ElectrolyteAbnormality implements ComorbiditiesFunctor {
 							hypercalDateElement.appendChild(doc.createTextNode(hypercalDate));
 							subCat.appendChild(hypercalDateElement);
 							Element hypercalCalElement = doc.createElement("hypercalcal");
-							hypercalCalElement.appendChild(doc.createTextNode(getICD9Commit(hypercalCal)));
+							hypercalCalElement.appendChild(doc.createTextNode(hypercalCal));
 							subCat.appendChild(hypercalCalElement);
 
 						
@@ -368,7 +368,7 @@ public class ElectrolyteAbnormality implements ComorbiditiesFunctor {
 							hypophosDateElement.appendChild(doc.createTextNode(hypophosDate));
 							subCat.appendChild(hypophosDateElement);
 							Element hypophosPhosElement = doc.createElement("hypophosphos");
-							hypophosPhosElement.appendChild(doc.createTextNode(getICD9Commit(hypophosPhos)));
+							hypophosPhosElement.appendChild(doc.createTextNode(hypophosPhos));
 							subCat.appendChild(hypophosPhosElement);
 
 						
@@ -392,7 +392,7 @@ public class ElectrolyteAbnormality implements ComorbiditiesFunctor {
 							hyperphosDateElement.appendChild(doc.createTextNode(hyperphosDate));
 							subCat.appendChild(hyperphosDateElement);
 							Element hyperphosPhosElement = doc.createElement("hyperphosphos");
-							hyperphosPhosElement.appendChild(doc.createTextNode(getICD9Commit(hyperphosPhos)));
+							hyperphosPhosElement.appendChild(doc.createTextNode(hyperphosPhos));
 							subCat.appendChild(hyperphosPhosElement);
 
 						
@@ -415,7 +415,7 @@ public class ElectrolyteAbnormality implements ComorbiditiesFunctor {
 							hypomagDateElement.appendChild(doc.createTextNode(hypomagDate));
 							subCat.appendChild(hypomagDateElement);
 							Element hypomagMagElement = doc.createElement("hypomagmag");
-							hypomagMagElement.appendChild(doc.createTextNode(getICD9Commit(hypomagMag)));
+							hypomagMagElement.appendChild(doc.createTextNode(hypomagMag));
 							subCat.appendChild(hypomagMagElement);
 
 						
@@ -439,7 +439,7 @@ public class ElectrolyteAbnormality implements ComorbiditiesFunctor {
 							hypermagDateElement.appendChild(doc.createTextNode(hypermagDate));
 							subCat.appendChild(hypermagDateElement);
 							Element hypermagMagElement = doc.createElement("hypermagmag");
-							hypermagMagElement.appendChild(doc.createTextNode(getICD9Commit(hypermagMag)));
+							hypermagMagElement.appendChild(doc.createTextNode(hypermagMag));
 							subCat.appendChild(hypermagMagElement);
 
 						

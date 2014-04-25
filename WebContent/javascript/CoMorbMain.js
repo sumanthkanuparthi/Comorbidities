@@ -17,6 +17,8 @@ function printPage()
 	        var delichkgrp 		= doc.getElementsByName('delichkgrp');
 	        var pneuchkgrp 		= doc.getElementsByName('pneuchkgrp');
 	        var akdChkGrp 		= doc.getElementsByName('akdChkGrp');
+	        var htChkGrp 		= doc.getElementsByName('htChkGrp');
+	      
 	        //var comments = doc.getElementById('commentsid');
 	        
 	        function CheckGroup(group, prev)
@@ -70,6 +72,8 @@ function printPage()
 	        			flag = CheckGroup(pneuchkgrp, flag);
 	        		if(checkboxes[i].value == 'Acute Kidney Injury: NOS')
 	        			flag = CheckGroup(akdChkGrp, flag);
+	        		if(checkboxes[i].value == 'Hypertension')
+	        			flag = CheckGroup(htChkGrp, flag);
 	        	}
 	
 	        flag = CheckGroup2(anemiaChkGrp, 	'Anemia :', checkboxes, flag);
@@ -140,6 +144,7 @@ function commitPage()
 	        var delichkgrp 		= doc.getElementsByName('delichkgrp');
 	        var pneuchkgrp 		= doc.getElementsByName('pneuchkgrp');
 	        var akdChkGrp 		= doc.getElementsByName('akdChkGrp');
+	        var htChkGrp 		= doc.getElementsByName('htChkGrp');
 	        //var comments = doc.getElementById('commentsid');
 	        
 	        function CheckGroup(group, prev)
@@ -193,6 +198,8 @@ function commitPage()
 	        			flag = CheckGroup(pneuchkgrp, flag);
 	        		if(checkboxes[i].value == 'Acute Kidney Injury: NOS')
 	        			flag = CheckGroup(akdChkGrp, flag);
+	        		if(checkboxes[i].value == 'Hypertension')
+	        			flag = CheckGroup(htChkGrp, flag);
 	        	}
 	
 	        flag = CheckGroup2(anemiaChkGrp, 	'Anemia :', checkboxes, flag);

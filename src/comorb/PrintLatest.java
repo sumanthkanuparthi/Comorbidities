@@ -40,7 +40,7 @@ public class PrintLatest extends HttpServlet {
 	final static Font errorFont = FontFactory.getFont("Courier",10, Font.BOLD, BaseColor.RED);
 	final Font font1 = FontFactory.getFont("Times-Roman",14, Font.BOLD);
 
-	/*
+	/*<a href ="http://172.31.133.123:8080/CoMorbidities/CoMorbMain.jsp?<%=request.getSession().getAttribute("prevURL")%>">back</a>
 	 * This Map maintains a record of all Comorbidities with the Comorbidity name as its key and an object
 	 * of that Comorbidity's class as its value. Every Comorbidity class implements the 'ComorbiditiesFunctor'
 	 * interface, which can be found in 'PrintInterface.java'
@@ -553,12 +553,13 @@ public class PrintLatest extends HttpServlet {
 							rd.forward(request, response);
                              */
 							 
-						     
+						     System.out.println("prevURL_print--->"+request.getParameter("prevURL_print"));
+							getServletContext().getRequestDispatcher("/Commit.jsp").forward(request, response);
 						     
 							
 							
-							response.sendRedirect(rp);
-							System.out.println(furl);
+							//response.sendRedirect(rp);
+							//System.out.println(furl);
 						}
 
 					

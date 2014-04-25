@@ -125,6 +125,7 @@ a {
     <%String spaces = " ";
 	Map<String,Map<String, String>> valueMatch=new HashMap<String,Map<String, String>>(); //ValueMatch
     String printPrevCoMorb="";
+	int somevalue=0;
     ArrayList<String> disableCoMorb=new ArrayList<String>();
     System.out.println("the selenium testing 1 2 3 ----------------------------");
     String encounterID=request.getParameter("encntr_id");
@@ -241,13 +242,41 @@ a {
 							noSubCategory=1;
 							nodeName=nll.item(j).getNodeName();
 							nodeValue=nll.item(j).getTextContent();
-							System.out.println("NodeName :"+nodeName+"NodeValue :"+nodeValue);
+							//System.out.println("NodeName :"+nodeName+"\t-->\tNodeValue :"+nodeValue);
 							values.put(nodeName,nodeValue);
 						}
 					}
 				}
-				valueMatch.put(combName, values);
-			
+				if(noSubCategory==1)
+				{
+					int match=0;
+					Iterator iSameComorb=valueMatch.entrySet().iterator();
+					while(iSameComorb.hasNext())
+					{
+						Entry e=(Entry)iSameComorb.next();
+						if(e.getKey().equals(combName))
+						{
+							Map<String, String> valuesIn=new HashMap<String, String>();
+							valuesIn=(Map<String, String>)e.getValue();
+							Map<String, String> valuesToInsert=new HashMap<String, String>();
+							valuesToInsert.putAll(valuesIn);
+							valuesToInsert.putAll(values);
+							iSameComorb.remove();
+							valueMatch.put((String)e.getKey(),valuesToInsert);
+							match=1;
+						}
+					}
+					if(match==0)
+					{
+						valueMatch.put(combName,values);
+					}
+					/*Iterator imatch=values.entrySet().iterator();
+					while(imatch.hasNext())
+					{
+						Entry e7=(Entry)imatch.next();
+						System.out.println("N Name ==> "+e7.getKey()+"\t N Value ==>"+e7.getValue());
+					}*/
+				}
 				%>
 			
 			<tr onmouseover="mouseOverPara('imageMobesity','<%=temp%>')" onmouseout="mouseOutPara('imageMobesity','<%=temp%>')" >
@@ -325,9 +354,9 @@ a {
 						//{	
 							//ValueMatch: Generating HashMap for test name and values which are there in sub-comorbidities
 							valuesCaptured=1;
-							nodeName=nll.item(j).getNodeName();
-							System.out.println("NodeName :"+nodeName+"NodeValue :"+nodeValue);
-							nodeValue=nll.item(j).getTextContent();
+							//nodeName=nll.item(j).getNodeName();
+							//System.out.println("NodeName :"+nodeName+"\t-->\tNodeValue :"+nodeValue);
+							//nodeValue=nll.item(j).getTextContent();
 							values.put(subcatChildList.item(j).getNodeName(),subcatChildList.item(j).getTextContent());
 						//}
 					}
@@ -370,10 +399,58 @@ a {
 					}
 				}
 				if(valuesCaptured==1)
-					valueMatch.put(combName,values);
+				{
+					int match=0;
+					Iterator iSameComorb=valueMatch.entrySet().iterator();
+					while(iSameComorb.hasNext())
+					{
+						Entry e=(Entry)iSameComorb.next();
+						if(e.getKey().equals(combName))
+						{
+							Map<String, String> valuesIn=new HashMap<String, String>();
+							valuesIn=(Map<String, String>)e.getValue();
+							Map<String, String> valuesToInsert=new HashMap<String, String>();
+							valuesToInsert.putAll(valuesIn);
+							valuesToInsert.putAll(values);
+							iSameComorb.remove();
+							valueMatch.put((String)e.getKey(),valuesToInsert);
+							match=1;
+						}
+					}
+					if(match==0)
+					{
+						valueMatch.put(combName,values);
+					}
+				/*	Iterator imatch2=values.entrySet().iterator();
+					while(imatch2.hasNext())
+					{
+						Entry e5=(Entry)imatch2.next();
+						System.out.println("NL Name ==>"+e5.getKey()+"\t NL Value ==>"+e5.getValue());
+					}*/
+					somevalue=1;
+				}
 			
 		}
 	 }
+	System.out.println("SOme Value :"+somevalue);
+	if(somevalue==1)	
+	{
+		Iterator itest1=valueMatch.entrySet().iterator();
+		while(itest1.hasNext())
+		{
+			Entry e=(Entry)itest1.next();
+			System.out.println("Comorbidity Name : "+e.getKey());
+			Map<String, String> ival=new HashMap<String, String>();
+			ival=(Map<String, String>)e.getValue();
+			Iterator itest2=ival.entrySet().iterator();
+			while(itest2.hasNext())
+			{
+				Entry e1=(Entry)itest2.next();
+				System.out.println("Node Name ==>"+e1.getKey()+"\tNode Value ==>"+e1.getValue());
+			}
+		}
+	}
+		
 		%>
 		  </table>
           </div>
@@ -2044,7 +2121,7 @@ a {
     	while(imain.hasNext())
     	{
     			Entry e=(Entry)imain.next();
-    			if(e.getKey().equals("Anemia"))
+    			if(e.getKey().equals("Anemia :"))
     			{
     				anemiaFlag=true;
     				values=(Map<String, String>)e.getValue();
@@ -2053,7 +2130,7 @@ a {
     	}
     	if(anemiaFlag)
     	{
-    		Iterator ival=values.entrySet().iterator();
+    		/*Iterator ival=values.entrySet().iterator();
     		while(ival.hasNext())
     		{
     			Entry e=(Entry)ival.next();
@@ -2071,7 +2148,12 @@ a {
        					if(!minhb.isEmpty())
        						anemiaValueMatch=1;
        				}
-    			}					
+    			}	
+    			if(!minhb.isEmpty() && !values.containsKey("chhglo"))
+				{
+    				anemiaFlag=false;
+    				anemiaValueMatch=1;
+				}
     			if(testName.equals("prechhglo")) 
     			{
     				if(!testVal.isEmpty() && !minhb_prev.isEmpty())
@@ -2085,7 +2167,11 @@ a {
        						anemiaValueMatch=1;
        				}
     			}
-								
+    			if(!minhb_prev.isEmpty() && !values.containsKey("prechhglo"))
+    			{
+    				anemiaFlag=false;
+    				anemiaValueMatch=1;
+    			}
     			if(testName.equals("chhcrit")) 
     			{	
     				if(!testVal.isEmpty() && !minhc.isEmpty())
@@ -2099,6 +2185,11 @@ a {
        						anemiaValueMatch=1;
        				}
     			}					
+    			if(!minhc.isEmpty() && !values.containsKey("chhcrit"))
+				{
+    				anemiaFlag=false;
+    				anemiaValueMatch=1;
+				}
     			if(testName.equals("prechhcrit"))
     			{
     				if(!testVal.isEmpty() && !minhc_prev.isEmpty())
@@ -2111,8 +2202,14 @@ a {
        					if(!minhc_prev.isEmpty())
        						anemiaValueMatch=1;
        				}
-    			}				
-    		}
+    			}	
+    			if(!minhc_prev.isEmpty() && !values.containsKey("prechhcrit"))
+    			{		
+    				anemiaFlag=false;
+    				anemiaValueMatch=1;
+    			}
+    		}*/
+    		anemiaValueMatch=0;
     	}
     	else
     	{
@@ -2555,6 +2652,11 @@ a {
        						KIValueMatch=1;
        				}
     			}	
+    			/*if(!maxcreatResult.isEmpty() && !values.containsKey("creat"))
+    			{
+					KIFlag=false;
+    				KIValueMatch=1;
+    			}*/
     			if(testName.equals("prevcreat"))  
     			{
     				if(!testVal.isEmpty() && !maxcreatprevResult.isEmpty())
@@ -2568,6 +2670,11 @@ a {
        						KIValueMatch=1;
        				}
     			}
+    			/*if(!maxcreatprevResult.isEmpty() && !values.containsKey("prevcreat"))
+    			{
+					KIFlag=false;	
+    				KIValueMatch=1;
+    			}*/
     		}
     	}
     	else
@@ -2852,7 +2959,12 @@ a {
        					if(!maxcreatResult.isEmpty())
        						CKValueMatch=1;
        				}
-       			}				 
+       			}
+       			/*if(!maxcreatResult.isEmpty() && !values.containsKey("rfcCreat"))
+       			{
+					CKDFlag=false;
+       				CKValueMatch=1;
+       			}*/
 				if(testName.equals("rfcPrevCreat"))  
 				{
 					if(!testVal.isEmpty() && !maxcreatprevResult.isEmpty())
@@ -2866,6 +2978,11 @@ a {
        						CKValueMatch=1;
        				}
 				}
+				/*if(!maxcreatprevResult.isEmpty() && !values.containsKey("rfcPrevCreat"))
+				{
+					CKDFlag=false;
+					CKValueMatch=1;
+				}*/
         	}
         }
         else
@@ -2996,6 +3113,7 @@ a {
     System.out.println("Dehydration: " + result_dehydration);
     if(result_dehydration !=0)
     {
+    	
     	Iterator imain=valueMatch.entrySet().iterator();
         Map<String, String> values =new HashMap<String, String>();
        	while(imain.hasNext())
@@ -3011,6 +3129,16 @@ a {
        	}
        	if(DFlag)
        	{
+       		if(!creatinineValue.isEmpty() && !bunValue.isEmpty())
+        	{
+        		double x=Double.parseDouble(creatinineValue);
+        		double y=Double.parseDouble(bunValue);
+        		if((int)(y/x)>20)
+        		{
+        			creatinineValue="8.0";
+        			bunValue="-99999.0";
+        		}
+        	}
        		Iterator ival=values.entrySet().iterator();
        		while(ival.hasNext())
         	{
@@ -3033,6 +3161,11 @@ a {
        				}
        				
        			}
+       			/*if(!creatinineValue.isEmpty() && !values.containsKey("hydracreatinine"))
+       			{
+       				DFlag=false;
+       				DehydrationValueMatch=1;
+       			}*/
        			if(testName.equals("hydrabunresult"))
        			{
        			
@@ -3048,6 +3181,11 @@ a {
        						DehydrationValueMatch=1;
        				}
        			}
+       			/*if(!bunValue.isEmpty() && !values.containsKey("hydrabunresult"))
+       			{	
+						DehydrationValueMatch=1;
+						DFlag=false;
+       			}*/
         	}
        		System.out.println("Result dehydration :"+result_dehydration);
        	}
@@ -3143,6 +3281,11 @@ a {
        						EBGValueMatch=1;
        				}
        			}
+       			/*if(!maxglucResult.equals("-99999.0") && !values.containsKey("glucresult"))
+       			{	
+       				EBGFlag=false;
+       				EBGValueMatch=1;
+       			}*/
        			
        		}
        	}
@@ -3291,8 +3434,11 @@ a {
        						HGValueMatch=1;
        				}
        			}
-       			
-       			
+       			/*if(!minglucResult.isEmpty() && !values.containsKey("glucResult"))
+       			{
+       				HGFlag=false;
+       				HGValueMatch=1;
+       			}*/
        		}
        	}
        	else
@@ -3380,7 +3526,11 @@ a {
        						HypoxiaValueMatch=1;
        				}
        			}
-       			
+       			if(!oximetryLow.isEmpty() && !values.containsKey("oximetryResult"))
+       			{
+       				HypoxiaFlag=false;
+       				HypoxiaValueMatch=1;
+       			}
        		}
        	}
        	else
@@ -3468,8 +3618,12 @@ a {
    	   						granValueMatch=1;
    	   				}
    				}
-   				
-   			}
+   				if(!minneutrophil.isEmpty() && !values.containsKey("minneutrophilResult"))
+   				{
+   					granFlag=false;
+   					granValueMatch=1;
+   				}
+    		}
    		}
    		else
    		{
@@ -3560,6 +3714,11 @@ a {
        						laValueMatch=1;
        				}
        			}
+       			if(!maxLacticAcid.equals("-99999.0") && !values.containsKey("lacticAcidResult"))
+       			{
+       				laFlag=false;
+       				laValueMatch=1;
+       			}
        		}
        	}
        	else
@@ -3638,6 +3797,7 @@ a {
     		Entry e=(Entry)imain.next();
     		if(e.getKey().equals("Electrolyte Abnormality"))
     		{
+    			System.out.println("******Map is into EA Abnormality*******");
    				eaFlag=true;
    				values=(Map<String, String>)e.getValue();
    				break;
@@ -3645,25 +3805,42 @@ a {
    		}
    		if(eaFlag)
    		{
+   			System.out.println("After eaFlag");
    			Iterator ival=values.entrySet().iterator();
    			while(ival.hasNext())
-    		{
+    		{		
+    			System.out.println("it has values");
     			Entry e=(Entry)ival.next();
     			String testName=(String)e.getKey();
     			String testVal=(String)e.getValue();
    				if(testName.equals("hypokalpot"))
    				{
+   					System.out.println("HypokalPot is in Node list");
    					if(!testVal.isEmpty() && !minpotassiumResult.isEmpty())
    					{
+   						System.out.println("HypokalPot tag value and new value are not NULL");
    						if(Double.parseDouble(testVal)!=Double.parseDouble(minpotassiumResult))
+   						{
+   							System.out.println("HypokalPot value Match");
    							eaValueMatch=1;
+   						}
    					}
    					else
    	   				{
+   						System.out.println("HypokalPot One of the values is null");
    	   					if(!minpotassiumResult.isEmpty())
+   	   					{
+   	   						System.out.println("HypokalPot value from cernet is in not null");
    	   						eaValueMatch=1;
+   	   					}
    	   				}
-   				}						
+   				}
+   				/*if(!minpotassiumResult.equals("99999.0") && !values.containsKey("hypokalpot"))
+  				{
+  						System.out.println("HypokalPot value from cernet is in not null2");
+  						eaFlag=false;
+  						eaValueMatch=1;
+  				}*/
    				if(testName.equals("hyperkalpot")) 
    				{
    					if(!testVal.isEmpty() && !maxpotassiumResult.isEmpty())
@@ -3676,7 +3853,13 @@ a {
    	   					if(!maxpotassiumResult.isEmpty())
    	   						eaValueMatch=1;
    	   				}
-   				}						
+   				}
+   				/*if(!maxpotassiumResult.equals("-99999.0") && !values.containsKey("hyperkalpot"))
+  				{					
+  						System.out.println("HyperkalPot null2");
+  						eaFlag=false;
+  						eaValueMatch=1;
+  				}*/
    				if(testName.equals("hyponatsod"))  
    				{
    					if(!testVal.isEmpty() && !minsodiumResult.isEmpty())
@@ -3686,10 +3869,20 @@ a {
    					}
    					else
    	   				{
-   	   					if(!minsodiumResult.isEmpty())
-   	   						eaValueMatch=1;
+   						System.out.println("HyponatSod One of the values is null");
+   						if(!minsodiumResult.isEmpty())
+   						{
+   							System.out.println("HyponatSod value from cernet is in not null");
+   							eaValueMatch=1;
+   						}
    	   				}
    				}
+   				/*if(!minsodiumResult.equals("99999.0") && !values.containsKey("hyponatsod"))
+				{
+					System.out.println("HyponatSod value from cernet is in not null2");
+					eaFlag=false;
+					eaValueMatch=1;
+				}*/
    				if(testName.equals("hypernatsod")) 
    				{	
    					
@@ -3700,10 +3893,20 @@ a {
    					}
    					else
    	   				{
-   	   					if(!maxsodiumResult.isEmpty())
-   	   						eaValueMatch=1;
+   						System.out.println("HypernatSod One of the values is null");
+   						if(!maxsodiumResult.isEmpty())
+   						{
+   							System.out.println("HypernatSod value from cernet is in not null");
+   							eaValueMatch=1;
+   						}
    	   				}
    				}
+   				/*if(!maxsodiumResult.equals("-99999.0") && !values.containsKey("hypernatsod"))
+				{
+						System.out.println("HypernatSod value from cernet is in not null2");
+						eaFlag=false;
+						eaValueMatch=1;
+				}*/
    				if(testName.equals("hypocalcal"))  
    				{
    					if(!testVal.isEmpty() && !mincalciumResult.isEmpty())
@@ -3717,6 +3920,12 @@ a {
    	   						eaValueMatch=1;
    	   				}
    				}
+   				/*if(!mincalciumResult.isEmpty() && !values.containsKey("hypocalcal"))
+   				{		
+   					System.out.println("in second if lcal");
+   					eaValueMatch=1;
+   					eaFlag=false;
+   				}*/
 				if(testName.equals("hypercalcal")) 
 				{	
 					if(!testVal.isEmpty() && !maxcalciumResult.isEmpty())
@@ -3730,6 +3939,12 @@ a {
    	   						eaValueMatch=1;
    	   				}
 				}
+				/*if(!maxcalciumResult.isEmpty() && !values.containsKey("hypercalcal"))
+				{	
+					System.out.println("in second if hcal");
+					eaFlag=false;
+					eaValueMatch=1;
+				}*/
 				if(testName.equals("hypophosphos")) 
 				{	
 					if(!testVal.isEmpty() && !minphosphorusResult.isEmpty())
@@ -3743,6 +3958,12 @@ a {
    	   						eaValueMatch=1;
    	   				}
 				}
+				/*if(!minphosphorusResult.isEmpty() && !values.containsKey("hypophosphos"))
+				{	
+					System.out.println("in second if lphos");
+					eaFlag=false;
+					eaValueMatch=1;
+				}*/
 				if(testName.equals("hyperphosphos"))
 				{
 					if(!testVal.isEmpty() && !maxphosphorusResult.isEmpty())
@@ -3756,7 +3977,13 @@ a {
    	   						eaValueMatch=1;
    	   				}
 				}
-				if(testName.equals("hypermagmag")) 
+				/*if(!maxphosphorusResult.isEmpty() && !values.containsKey("hyperphosphos"))
+				{		
+					System.out.println("in second if hphos");
+					eaFlag=false;
+					eaValueMatch=1;
+				}*/
+				if(testName.equals("hypomagmag")) 
 				{
 					
 					if(!testVal.isEmpty() && !minmagnesiumResult.isEmpty())
@@ -3770,6 +3997,12 @@ a {
    	   						eaValueMatch=1;
    	   				}
 				}
+				/*if(!minmagnesiumResult.isEmpty() && !values.containsKey("hypomagmag"))
+				{		
+					System.out.println("in second if lmag");
+					eaFlag=false;
+					eaValueMatch=1;
+				}*/
 				if(testName.equals("hypermagmag")) 
 				{	
 					if(!testVal.isEmpty() && !maxmagnesiumResult.isEmpty())
@@ -3782,7 +4015,13 @@ a {
    	   					if(!maxmagnesiumResult.isEmpty())
    	   						eaValueMatch=1;
    	   				}
-				}		
+				}
+  				/*if(!maxmagnesiumResult.isEmpty() && !values.containsKey("hypermagmag"))
+  				{		
+  					System.out.println("in second if hmag");
+  					eaFlag=false;
+  					eaValueMatch=1;
+  				}*/
    			}
    		}
    		else
@@ -4249,6 +4488,11 @@ a {
    	   						HCLValueMatch=1;
    	   				}
        			}
+       			if(!maxcholesterolResult.isEmpty() && !values.containsKey("cholesterolResult"))
+       			{
+       				hclFlag=false;
+       				HCLValueMatch=1;
+       			}
        		}
        	}
        	else
@@ -4340,6 +4584,11 @@ a {
    	   						malValueMatch=1;
    	   				}
        			}
+       			/*if(!maxheight.isEmpty() && !values.containsKey("malHeight"))
+       			{
+  					mFlag=false;	
+       				malValueMatch=1;
+       			}*/
        			if(testName.equals("malWeight")) 
        			{
        				if(!testVal.isEmpty() && !minweight.isEmpty())
@@ -4353,6 +4602,11 @@ a {
    	   						malValueMatch=1;
    	   				}
        			}
+       			/*if(!minweight.isEmpty() && !values.containsKey("malWeight"))
+       			{
+  					mFlag=false;	
+       				malValueMatch=1;
+       			}*/
        		}
        	}
        	else
@@ -4446,7 +4700,12 @@ a {
    	   					if(!maxweight.isEmpty())
    	   						oValueMatch=1;
    	   				}
-       			}				
+       			}			
+       			/*if(!maxweight.isEmpty() && !values.containsKey("obweight"))
+       			{
+  					oFlag=false;	
+       				oValueMatch=1;
+       			}*/
        			if(testName.equals("obheight")) 
        			{	
        				
@@ -4461,6 +4720,11 @@ a {
    	   						oValueMatch=1;
    	   				}
        			}
+       			/*if(!minheight.isEmpty() && !values.containsKey("obheight"))
+       			{
+  					oFlag=false;	
+       				oValueMatch=1;
+       			}*/
        		}
        	}
        	else
@@ -4560,6 +4824,11 @@ a {
    	   						moValueMatch=1;
    	   				}
        			}
+	   			/*if(!maxweight.isEmpty() && !values.containsKey("mobweight"))
+	   			{
+	   				moFlag=false;
+	   				moValueMatch=1;
+	   			}*/
        			if(testName.equals("mobheight")) 
        			{	
        				if(!testVal.isEmpty() && !minheight.isEmpty())
@@ -4573,6 +4842,12 @@ a {
    	   						moValueMatch=1;
    	   				}
        			}
+       			/*if(!minheight.isEmpty() && !values.containsKey("mobheight"))
+	   			{
+	   				moFlag=false;
+	   				moValueMatch=1;
+	   			}*/
+       			
        		}
        	}
        	else
@@ -4663,7 +4938,12 @@ a {
    	   					if(!maxsysBP.isEmpty())
    	   						htValueMatch=1;
    	   				}
-       			}				
+       			}
+       			/*if(!maxsysBP.isEmpty() && !values.containsKey("htnbpsys"))
+       			{
+  					htFlag=false;
+       				htValueMatch=1;
+       			}*/
        			if(testName.equals("htnbpdia")) 
        			{		
        				if(!testVal.isEmpty() && !maxdiasBP.isEmpty())
@@ -4677,7 +4957,16 @@ a {
    	   						htValueMatch=1;
    	   				}
        			}
+       			/*if(!maxdiasBP.isEmpty() && !values.containsKey("htnbpdia"))
+       			{
+       				htFlag=false;
+       				htValueMatch=1;
+       			}*/
        		}
+       	}
+       	else
+       	{
+       		htValueMatch=1;
        	}
     }
     if(htValueMatch!=0)
@@ -4823,7 +5112,16 @@ a {
        					shockValueMatch=1;
        				}
        			}
+       			/*if(!minsysBP.isEmpty() && !values.containsKey("shockbp"))
+       			{
+   					shockFlag=false;
+       				shockValueMatch=1;
+       			}*/
        		}
+       	}
+       	else
+       	{
+       		shockValueMatch=1;
        	}
     }
     if(shockValueMatch!=0)
@@ -5261,7 +5559,7 @@ a {
 		}
 		if(utiFlag)
 		{
-			Iterator ival=values.entrySet().iterator();
+			/*Iterator ival=values.entrySet().iterator();
 			while(ival.hasNext())
 			{
 				Entry e=(Entry)ival.next();
@@ -5281,6 +5579,11 @@ a {
    	   						utiValueMatch=1;
    	   				}
 				}
+				if(!maxUtiWbc.isEmpty() && !values.containsKey("wbccount"))
+				{
+					utiFlag=false;
+					utiValueMatch=1;
+				}
 				if(testName.equals("utiuln"))
 				{
 					if(!testVal.isEmpty() && !urini.isEmpty())
@@ -5293,7 +5596,11 @@ a {
    	   					if(!urini.isEmpty())
    	   						utiValueMatch=1;
    	   				}
-					
+				}
+				if(!urini.isEmpty() && !values.containsKey("utiuln"))
+				{
+					utiFlag=false;
+					utiValueMatch=1;
 				}
 				if(testName.equals("utiule"))
 				{
@@ -5308,7 +5615,17 @@ a {
    	   						utiValueMatch=1;
    	   				}
 				}
-			}
+				if(!urinest.isEmpty() && !values.containsKey("utiule"))
+				{
+  					utiFlag=false;	
+					utiValueMatch=1;
+				}
+			}*/
+			utiValueMatch=0;
+		}
+		else
+		{
+			utiValueMatch=1;
 		}
     }
     if(utiValueMatch != 0)
